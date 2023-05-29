@@ -1,20 +1,14 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { Rerousel } from 'rerousel';
 import styled from 'styled-components';
-import fetchMovies from '../../utils/fetchMovies';
 
-const Recommandation = () => {
-  const [movies, setMovies] = useState([]);
+const Recommandation = ({ movies }) => {
   const [isHovered, setIsHovered] = useState(false);
   const test = useRef(null);
 
   const ImageCover = styled.img`
     width: calc(100% / 6);
   `;
-
-  useEffect(() => {
-    fetchMovies(setMovies);
-  }, []);
 
   const handleMouseOver = () => {
     setIsHovered(true);
