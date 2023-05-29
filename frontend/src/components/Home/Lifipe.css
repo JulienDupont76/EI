@@ -1,0 +1,99 @@
+a {
+  text-decoration: none;
+  color: #000;
+}
+
+.vignette {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-position: center;
+  background-size: contain;
+  width: 300px;
+  height: 450px;
+  border-radius: 20px;
+  transition: all 0.5s;
+  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.2);
+}
+
+.vignette:hover {
+  transform: scale(1.1);
+}
+
+.vignette:hover .name {
+  opacity: 0.8;
+  transition: opacity 0.5s;
+}
+
+.vignette:hover .description {
+  opacity: 0.7;
+  transition: opacity 0.5s;
+}
+
+.vignette:hover .bouton {
+  opacity: 1;
+  transition: opacity 0.5s;
+}
+
+.vignette .description {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  margin: 0 10px 0 10px;
+  background: #c0c0c0;
+  opacity: 0;
+  color: #000;
+  overflow: hidden;
+}
+
+.texte {
+  font-size: 20px;
+  font-weight: 500;
+  margin: 0;
+  padding: 5px;
+  text-align: center;
+}
+
+.name {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 5px 10px 0 10px;
+  line-height: 1;
+  color: #000;
+  text-align: center;
+  opacity: 0;
+  padding: 5px;
+}
+
+.vignette > p {
+  background: #c0c0c0;
+  border-radius: 20px 20px 0 0;
+  margin: 10px 10px 0 10px;
+}
+
+.opinion {
+  display: flex;
+}
+
+.bouton {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 10%;
+  background-image: linear-gradient(to bottom, #767676, #454545);
+  border-radius: 0 0 20px 20px;
+  opacity: 0;
+  margin: 0 10px 10px 10px;
+}
+
+.details {
+  padding: 5px;
+  text-align: center;
+  width: 100%;
+}
+
+.test {
+  width: 20%;
+}

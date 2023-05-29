@@ -1,0 +1,210 @@
+body {
+  font-family: Ambit, sans-serif;
+}
+
+.Wrapper {
+  overflow: hidden;
+  background-color: wheat;
+}
+
+.Liste {
+  display: flex;
+  flex-wrap: nowrap;
+  position: relative;
+  width: fit-content;
+  margin: -0.5625em 0px -0.5625em 50%;
+  transform: translateX(-50%);
+}
+
+.li {
+  margin: 0.5625em;
+  transform: translate3d(0px, 0px, 0px);
+  will-change: transform;
+}
+
+.li.a {
+  animation: 200s linear 0s infinite reverse none running OPINION-SCROLLING-0;
+}
+
+.li.b {
+  animation: 200s linear -15.3846s infinite reverse none running OPINION-SCROLLING-1;
+}
+
+.li.c {
+  animation: 200s linear -30.7692s infinite reverse none running OPINION-SCROLLING-2;
+}
+
+.li.d {
+  animation: 200s linear -46.1538s infinite reverse none running OPINION-SCROLLING-3;
+}
+
+.li.e {
+  animation: 200s linear -61.5385s infinite reverse none running OPINION-SCROLLING-4;
+}
+
+.li.f {
+  animation: 200s linear -76.9231s infinite reverse none running OPINION-SCROLLING-5;
+}
+
+.li.g {
+  animation: 200s linear -92.3077s infinite reverse none running OPINION-SCROLLING-6;
+}
+
+.li.h {
+  animation: 200s linear -107.692s infinite reverse none running OPINION-SCROLLING-7;
+}
+
+.li.i {
+  animation: 200s linear -123.077s infinite reverse none running OPINION-SCROLLING-8;
+}
+
+.li.j {
+  animation: 200s linear -138.462s infinite reverse none running OPINION-SCROLLING-9;
+}
+
+.li.k {
+  animation: 200s linear -153.846s infinite reverse none running OPINION-SCROLLING-10;
+}
+
+.li.l {
+  animation: 200s linear -169.231s infinite reverse none running OPINION-SCROLLING-11;
+}
+
+.li.m {
+  animation: 200s linear -184.615s infinite reverse none running OPINION-SCROLLING-12;
+}
+
+.container2 {
+  display: flex;
+  flex-direction: column;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  width: 18.75em;
+  min-height: 100%;
+  box-sizing: border-box;
+  padding: 1.875em 2.5em;
+  border: 2px solid rgb(255, 255, 255);
+  border-radius: 0.5em;
+  background-color: red;
+}
+
+ul {
+  list-style: none;
+}
+
+@keyframes OPINION-SCROLLING-0 {
+  0% {
+    transform: translate3d(0em, 0px, 0px);
+  }
+  100% {
+    transform: translate3d(258.375em, 0px, 0px);
+  }
+}
+
+@keyframes OPINION-SCROLLING-1 {
+  0% {
+    transform: translate3d(-19.875em, 0px, 0px);
+  }
+  100% {
+    transform: translate3d(238.5em, 0px, 0px);
+  }
+}
+
+@keyframes OPINION-SCROLLING-2 {
+  0% {
+    transform: translate3d(-39.75em, 0px, 0px);
+  }
+  100% {
+    transform: translate3d(218.625em, 0px, 0px);
+  }
+}
+
+@keyframes OPINION-SCROLLING-3 {
+  0% {
+    transform: translate3d(-59.625em, 0px, 0px);
+  }
+  100% {
+    transform: translate3d(198.75em, 0px, 0px);
+  }
+}
+
+@keyframes OPINION-SCROLLING-4 {
+  0% {
+    transform: translate3d(-79.5em, 0px, 0px);
+  }
+  100% {
+    transform: translate3d(178.875em, 0px, 0px);
+  }
+}
+
+@keyframes OPINION-SCROLLING-5 {
+  0% {
+    transform: translate3d(-99.375em, 0px, 0px);
+  }
+  100% {
+    transform: translate3d(159em, 0px, 0px);
+  }
+}
+
+@keyframes OPINION-SCROLLING-6 {
+  0% {
+    transform: translate3d(-119.25em, 0px, 0px);
+  }
+  100% {
+    transform: translate3d(139.125em, 0px, 0px);
+  }
+}
+
+@keyframes OPINION-SCROLLING-7 {
+  0% {
+    transform: translate3d(-139.125em, 0px, 0px);
+  }
+  100% {
+    transform: translate3d(119.25em, 0px, 0px);
+  }
+}
+
+@keyframes OPINION-SCROLLING-8 {
+  0% {
+    transform: translate3d(-159em, 0px, 0px);
+  }
+  100% {
+    transform: translate3d(99.375em, 0px, 0px);
+  }
+}
+
+@keyframes OPINION-SCROLLING-9 {
+  0% {
+    transform: translate3d(-178.875em, 0px, 0px);
+  }
+  100% {
+    transform: translate3d(79.5em, 0px, 0px);
+  }
+}
+
+@keyframes OPINION-SCROLLING-10 {
+  0% {
+    transform: translate3d(-198.75em, 0px, 0px);
+  }
+  100% {
+    transform: translate3d(59.625em, 0px, 0px);
+  }
+}
+
+@keyframes OPINION-SCROLLING-11 {
+  0% {
+    transform: translate3d(-218.625em, 0px, 0px);
+  }
+  100% {
+    transform: translate3d(39.75em, 0px, 0px);
+  }
+}
+
+@keyframes OPINION-SCROLLING-12 {
+  0% {
+    transform: translate3d(-238.5em, 0px, 0px);
+  }
+  100% {
+    transform: translate3d(19.875em, 0px, 0px);
+  }
+}
