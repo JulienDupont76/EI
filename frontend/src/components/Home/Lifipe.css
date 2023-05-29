@@ -8,12 +8,14 @@ a {
   flex-direction: column;
   justify-content: space-between;
   background-position: center;
-  background-size: contain;
+  background-size: cover;
   width: 300px;
   height: 450px;
   border-radius: 20px;
   transition: all 0.5s;
   box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.2);
+  background-repeat: no-repeat;
+  background-color: #000;
 }
 
 .vignette:hover {
@@ -94,6 +96,6 @@ a {
   width: 100%;
 }
 
-.test {
+.fleche {
   width: 20%;
 }

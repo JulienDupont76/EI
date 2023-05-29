@@ -5,6 +5,8 @@ import Layout from './components/Layout/Layout';
 import Counter from './pages/Counter/Counter';
 import Users from './pages/Users/Users';
 import Carousel from './pages/Carousel/Carousel';
+import Film from './pages/Film-page/Film-page';
+import HomeTest from './pages/HomeTest/HomeTest';
 
 function App() {
   return (
@@ -15,6 +17,8 @@ function App() {
         <Route path="users" element={<Users />} />
         <Route path="about" element={<About />} />
         <Route path="carousel" element={<Carousel />} />
+        <Route path="film" element={<Film />} />
+        <Route path="home" element={<HomeTest />} />
       </Routes>
     </Layout>
   );

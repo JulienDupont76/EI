@@ -16,7 +16,7 @@ const Lifipe = ({ movie }) => {
         </div>
         <div className="bouton">
           <p className="details">En voir plus</p>
-          <BsFillArrowRightCircleFill className="test" />
+          <BsFillArrowRightCircleFill className="fleche" />
         </div>
       </div>
     </article>
