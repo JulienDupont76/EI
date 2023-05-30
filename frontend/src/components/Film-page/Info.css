@@ -1,0 +1,8 @@
+.container-info {
+  background-color: white;
+  color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+}

@@ -59,7 +59,6 @@ const Carousel = () => {
 
   const ImageCover = styled.img`
     width: calc(100% / 6);
-    border: solid 1px black;
   `;
 
   const fetchMovies = () => {

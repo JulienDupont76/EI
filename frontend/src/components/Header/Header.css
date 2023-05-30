@@ -1,9 +1,11 @@
 .Header-container {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
   padding: 5px;
   font-size: calc(10px + 2vmin);
+  background-color: white;
+  color: #000;
 }
 
 .Header-container > :not(:last-child) {
@@ -12,5 +14,28 @@
 
 .Link {
   font-weight: 700;
-  color: white;
+  color: #000;
+}
+
+.Header-container .logo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.Header-container .logo .title {
+  margin: 0;
+  color: #000;
+  padding: 0 0 5px 10px;
+}
+.Header-container .logo .subtitle {
+  margin: 0;
+  color: #000;
+  padding: 0 0 0 10px;
+  font-size: 18px;
+}
+
+.Header-container .connection {
+  padding-right: 10px;
+  font-weight: 700;
 }

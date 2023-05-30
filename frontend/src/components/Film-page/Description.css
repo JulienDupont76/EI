@@ -1,0 +1,90 @@
+.test {
+  width: 100%;
+  height: 500px;
+  border-bottom: 1px solid rgba(52.5, 31.5, 10.5, 1);
+  background: linear-gradient(
+    to bottom right,
+    rgba(52.5, 31.5, 10.5, 1),
+    rgba(52.5, 31.5, 10.5, 0.84)
+  );
+  background-position: left calc((50vw - 170px) - 340px) top;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.test2 {
+  height: 100%;
+  background-image: linear-gradient(
+    to right,
+    rgba(52.5, 31.5, 10.5, 1) calc((50vw - 170px) - 340px),
+    rgba(52.5, 31.5, 10.5, 0.84) 50%,
+    rgba(52.5, 31.5, 10.5, 0.84) 100%
+  );
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.cartouche {
+  height: 90%;
+  width: 50%;
+}
+
+.poster {
+  border-radius: 20px;
+  max-width: 100%;
+  max-height: 90%;
+}
+
+.title {
+  width: 100%;
+  font-weight: 700;
+  font-size: 50px;
+  color: #fff;
+  margin: 10px 0 0 0;
+}
+
+.infos {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.certification {
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.6);
+  border-radius: 2px;
+  display: inline-flex;
+  align-items: center;
+  margin: 12px 0;
+  padding: 0 4px;
+  font-size: 20px;
+}
+
+.boutons {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 30px;
+}
+
+.note {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+}
+
+.like {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 4em;
+  height: 4em;
+
+  background-color: rgb(3, 37, 65);
+  border-radius: 50%;
+}
