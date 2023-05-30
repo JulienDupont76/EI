@@ -17,7 +17,7 @@ jobs:
         run: npm install --prefix /home/runner/work/EI/EI/frontend
 
       - name: Build project
-        run: npm run build
+        run: npm run build -prefix /home/runner/work/EI/EI/frontend
 
       - name: Deploy to Apache2
         uses: easingthemes/ssh-deploy@v2.1.5
