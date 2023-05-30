@@ -13,14 +13,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Changer de répertoire vers frontend
-        run: cd frontend
-
-      - name: test
-        run: ls -al
-
       - name: Install dependencies
-        run: npm install
+        run: npm install --prefix /home/runner/work/EI/EI/frontend
 
       - name: Build project
         run: npm run build
