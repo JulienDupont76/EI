@@ -1,0 +1,29 @@
+name: Deploy to Apache2
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+
+      - name: Deploy to Apache2
+        uses: easingthemes/ssh-deploy@v2.1.5
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_PRIVATE_KEY }}
+          SOURCE_PATH: "build/"
+          TARGET_PATH: "/var/www/html/"
+          SERVER_HOST: 138.195.138.190
+          SERVER_USERNAME: ubuntu
