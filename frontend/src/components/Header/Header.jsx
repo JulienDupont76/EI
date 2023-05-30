@@ -5,13 +5,13 @@ const Header = () => {
   return (
     <div className="Header-container">
       <Link className="logo" to="/home">
-        <h1 className="title">Quoi regarder ?</h1>
+        <p className="title">Quoi regarder ?</p>
         <p className="subtitle">
           L'assistant personnel de recommandation de film
         </p>
       </Link>
-      <div>
-        <p className="connection">Se connecter</p>
+      <div className="connection">
+        <p>Se connecter</p>
       </div>
     </div>
   );

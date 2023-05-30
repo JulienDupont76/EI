@@ -2,6 +2,7 @@ import './Info.css';
 import { useEffect, useState } from 'react';
 import fetchMovieData from '../../utils/fetchMovieData';
 import translateFilmStatus from '../../utils/translateFilmStatus';
+import formatPrix from '../../utils/formatPrice';
 
 const Info = ({ idFilm }) => {
   const [movieData, setMovieData] = useState([]);
@@ -49,7 +50,7 @@ const Info = ({ idFilm }) => {
           <p style={{ fontSize: '18px', margin: '10px 0' }}>Non renseigné</p>
         ) : (
           <p style={{ fontSize: '18px', margin: '10px 0' }}>
-            $ {movieData.budget}
+            $ {formatPrix(movieData.budget)}
           </p>
         )}
       </div>
@@ -61,7 +62,7 @@ const Info = ({ idFilm }) => {
           <p style={{ fontSize: '18px', margin: '10px 0' }}>Non renseigné</p>
         ) : (
           <p style={{ fontSize: '18px', margin: '10px 0' }}>
-            $ {movieData.revenue}
+            $ {formatPrix(movieData.revenue)}
           </p>
         )}
       </div>

@@ -1,0 +1,23 @@
+@media (max-width: 1440px) {
+  .carousel {
+    width: calc(100% / 5) !important;
+  }
+}
+
+@media (max-width: 1150px) {
+  .carousel {
+    width: calc(100% / 4) !important;
+  }
+}
+
+@media (max-width: 900px) {
+  .carousel {
+    width: calc(100% / 3) !important;
+  }
+}
+
+@media (max-width: 650px) {
+  .carousel {
+    width: calc(100% / 2) !important;
+  }
+}
