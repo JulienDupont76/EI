@@ -1,6 +1,15 @@
 import './Info.css';
+import { useEffect, useState } from 'react';
+import fetchMovieData from '../../utils/fetchMovieData';
+import translateFilmStatus from '../../utils/translateFilmStatus';
 
-const Info = () => {
+const Info = ({ idFilm }) => {
+  const [movieData, setMovieData] = useState([]);
+
+  const languageNames = new Intl.DisplayNames(['fr'], { type: 'language' });
+
+  useEffect(() => fetchMovieData(setMovieData, idFilm), []);
+
   return (
     <div className="container-info">
       <div>
@@ -8,32 +17,53 @@ const Info = () => {
           Titre d'origine
         </p>
         <p style={{ fontSize: '18px', margin: '10px 0' }}>
-          John Wick: Chapter 4
+          {movieData.original_title}
         </p>
       </div>
       <div>
         <p style={{ fontSize: '20px', fontWeight: '700', margin: '10px 0' }}>
           Statut
         </p>
-        <p style={{ fontSize: '18px', margin: '10px 0' }}>Film sorti</p>
+        <p style={{ fontSize: '18px', margin: '10px 0' }}>
+          {translateFilmStatus(movieData.status)}
+        </p>
       </div>
       <div>
         <p style={{ fontSize: '20px', fontWeight: '700', margin: '10px 0' }}>
           Langue d'origine
         </p>
-        <p style={{ fontSize: '18px', margin: '10px 0' }}>Anglais</p>
+        <p style={{ fontSize: '18px', margin: '10px 0' }}>
+          {movieData.original_language &&
+            languageNames
+              .of(movieData.original_language)
+              .charAt(0)
+              .toUpperCase() +
+              languageNames.of(movieData.original_language).slice(1)}
+        </p>
       </div>
       <div>
         <p style={{ fontSize: '20px', fontWeight: '700', margin: '10px 0' }}>
           Budget
         </p>
-        <p style={{ fontSize: '18px', margin: '10px 0' }}>$90,000,000.00</p>
+        {movieData.budget === 0 ? (
+          <p style={{ fontSize: '18px', margin: '10px 0' }}>Non renseigné</p>
+        ) : (
+          <p style={{ fontSize: '18px', margin: '10px 0' }}>
+            $ {movieData.budget}
+          </p>
+        )}
       </div>
       <div>
         <p style={{ fontSize: '20px', fontWeight: '700', margin: '10px 0' }}>
           Recette
         </p>
-        <p style={{ fontSize: '18px', margin: '10px 0' }}>$426,769,198.00</p>
+        {movieData.revenue === 0 ? (
+          <p style={{ fontSize: '18px', margin: '10px 0' }}>Non renseigné</p>
+        ) : (
+          <p style={{ fontSize: '18px', margin: '10px 0' }}>
+            $ {movieData.revenue}
+          </p>
+        )}
       </div>
     </div>
   );

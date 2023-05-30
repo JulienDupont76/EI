@@ -1,9 +1,16 @@
 import './Lifipe.css';
 import { BsFillArrowRightCircleFill } from 'react-icons/bs';
+import { useNavigate } from 'react-router-dom';
 
 const Lifipe = ({ movie }) => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/film/${movie.id}`);
+  };
+
   return (
-    <article>
+    <article onClick={handleClick}>
       <div
         className="vignette"
         style={{

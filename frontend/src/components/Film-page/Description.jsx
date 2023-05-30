@@ -1,49 +1,85 @@
 import { BsHeartFill } from 'react-icons/bs';
 import './Description.css';
+import { useEffect, useState } from 'react';
+import fetchMovieData from '../../utils/fetchMovieData';
+import convertDateUStoFR from '../../utils/DateUStoFR';
+import convertMinutesToHoursMinutes from '../../utils/TimeMinutesToHoursMinutes';
 
-const Description = () => {
+const Description = ({ idFilm }) => {
+  const [movieData, setMovieData] = useState([]);
+
+  useEffect(() => fetchMovieData(setMovieData, idFilm), []);
+
   return (
-    <div className="test">
+    <div
+      className="test"
+      style={{
+        backgroundImage: movieData.backdrop_path
+          ? `url("https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces/${movieData.backdrop_path}")`
+          : '#000',
+      }}
+    >
       <div className="test2">
         <img
           className="poster"
-          src="https://image.tmdb.org/t/p/w500/vZloFAK7NmvMGKE7VkF5UHaz0I.jpg"
+          src={
+            movieData.poster_path
+              ? `https://image.tmdb.org/t/p/w500${movieData.poster_path}`
+              : ''
+          }
           alt="test"
         />
         <div className="cartouche">
           <section>
-            <h1 className="title">John Wick</h1>
+            <h1 className="title">{movieData.title}</h1>
             <div className="infos">
               <span className="certification">12</span>
-              <p style={{ fontSize: '20px' }}>22/03/2023 (FR)</p>
-              <p style={{ fontSize: '20px' }}>Action, Thriller ,Crime</p>
-              <p style={{ fontSize: '20px' }}>2h 49m</p>
+              <p style={{ fontSize: '20px' }}>
+                {movieData.release_date &&
+                  convertDateUStoFR(movieData.release_date)}{' '}
+                (FR)
+              </p>
+              {movieData.genres && (
+                <p style={{ fontSize: '20px' }}>
+                  {movieData.genres.map((element) => element.name).join(', ')}
+                </p>
+              )}
+              {movieData.runtime !== 0 && (
+                <p style={{ fontSize: '20px' }}>
+                  {convertMinutesToHoursMinutes(movieData.runtime)}
+                </p>
+              )}
             </div>
             <div className="overview">
-              <p
-                style={{
-                  fontSize: '25px',
-                  fontWeight: '400',
-                  fontStyle: 'italic',
-                  opacity: '0.7',
-                  margin: '10px 0',
-                }}
-              >
-                Pas de retour, une seule sortie.
-              </p>
-              <h2 style={{ fontSize: '30px', margin: '10px 0' }}>Synopsis</h2>
-              <p
-                style={{
-                  fontSize: '22px',
-                  fontWeight: '500',
-                  lineHeight: '1.5',
-                }}
-              >
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi,
-                laborum. Doloribus, sequi autem. Quasi, aperiam? Sint quas at
-                deserunt, totam distinctio repellendus earum dignissimos eos, et
-                necessitatibus illo explicabo non!
-              </p>
+              {movieData.tagline && (
+                <p
+                  style={{
+                    fontSize: '25px',
+                    fontWeight: '400',
+                    fontStyle: 'italic',
+                    opacity: '0.7',
+                    margin: '10px 0',
+                  }}
+                >
+                  {movieData.tagline}
+                </p>
+              )}
+              {movieData.overview && (
+                <div>
+                  <h2 style={{ fontSize: '30px', margin: '10px 0' }}>
+                    Synopsis
+                  </h2>
+                  <p
+                    style={{
+                      fontSize: '22px',
+                      fontWeight: '500',
+                      lineHeight: '1.5',
+                    }}
+                  >
+                    {movieData.overview}
+                  </p>
+                </div>
+              )}
             </div>
             <div className="boutons">
               <div className="note">

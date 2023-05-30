@@ -17,7 +17,7 @@ function App() {
         <Route path="users" element={<Users />} />
         <Route path="about" element={<About />} />
         <Route path="carousel" element={<Carousel />} />
-        <Route path="film" element={<Film />} />
+        <Route path="film/:idFilm" element={<Film />} />
         <Route path="home" element={<HomeTest />} />
       </Routes>
     </Layout>
