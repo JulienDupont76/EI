@@ -7,6 +7,7 @@ import Users from './pages/Users/Users';
 import Carousel from './pages/Carousel/Carousel';
 import Film from './pages/Film-page/Film-page';
 import HomeTest from './pages/HomeTest/HomeTest';
+import Playground from './pages/Playground/Playground';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="carousel" element={<Carousel />} />
         <Route path="film/:idFilm" element={<Film />} />
         <Route path="home" element={<HomeTest />} />
+        <Route path="test" element={<Playground />} />
       </Routes>
     </Layout>
   );
