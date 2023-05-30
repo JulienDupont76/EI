@@ -20,15 +20,13 @@ const Description = ({ idFilm }) => {
       }}
     >
       <div className="test2">
-        <img
-          className="poster"
-          src={
-            movieData.poster_path
-              ? `https://image.tmdb.org/t/p/w500${movieData.poster_path}`
-              : ''
-          }
-          alt="test"
-        />
+        {movieData.poster_path && (
+          <img
+            className="poster"
+            src={`https://image.tmdb.org/t/p/w500${movieData.poster_path}`}
+            alt="test"
+          />
+        )}
         <div className="cartouche">
           <section>
             <h1 className="title">{movieData.title}</h1>

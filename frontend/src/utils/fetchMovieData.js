@@ -10,6 +10,7 @@ const fetchMovieData = (setMovieData, idFilm) => {
     })
     .catch((error) => {
       console.error(error);
+      setMovieData(null);
     });
 };
 

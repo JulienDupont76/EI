@@ -7,6 +7,7 @@ const Lifipe = ({ movie }) => {
 
   const handleClick = () => {
     navigate(`/film/${movie.id}`);
+    navigate(0);
   };
 
   return (
