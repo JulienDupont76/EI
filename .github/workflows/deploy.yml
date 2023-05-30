@@ -16,6 +16,9 @@ jobs:
       - name: Changer de répertoire vers frontend
         run: cd frontend/
 
+      - name: test
+        run: ls -al
+
       - name: Install dependencies
         run: npm install
 
