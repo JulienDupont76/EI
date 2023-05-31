@@ -1,7 +1,11 @@
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { AuthContext } from '../Authentification/Auth';
 import './Header.css';
 
 const Header = () => {
+  const { isAuthenticated, user, login, logout } = useContext(AuthContext);
+
   return (
     <div className="Header-container">
       <Link className="logo" to="/home">
@@ -10,8 +14,8 @@ const Header = () => {
           L'assistant personnel de recommandation de film
         </p>
       </Link>
-      <div className="connection">
-        <p>Se connecter</p>
+      <div className="connection" onClick={isAuthenticated ? logout : login}>
+        <p>{isAuthenticated ? `Bienvenue ${user.username}` : 'Se connecter'}</p>
       </div>
     </div>
   );
