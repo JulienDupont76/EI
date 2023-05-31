@@ -14,9 +14,9 @@ const Genre = new typeorm.EntitySchema({
     },
   },
   relations: {
-    collections: {
+    movies: {
       type: 'many-to-many',
-      target: 'Collection',
+      target: 'Movie',
       joinTable: true,
       cascade: true,
     },

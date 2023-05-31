@@ -8,21 +8,24 @@ import Carousel from './pages/Carousel/Carousel';
 import Film from './pages/Film-page/Film-page';
 import HomeTest from './pages/HomeTest/HomeTest';
 import Playground from './pages/Playground/Playground';
+import { AuthProvider } from './components/Authentification/Auth';
 
 function App() {
   return (
-    <Layout>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="counter" element={<Counter />} />
-        <Route path="users" element={<Users />} />
-        <Route path="about" element={<About />} />
-        <Route path="carousel" element={<Carousel />} />
-        <Route path="film/:idFilm" element={<Film />} />
-        <Route path="home" element={<HomeTest />} />
-        <Route path="test" element={<Playground />} />
-      </Routes>
-    </Layout>
+    <AuthProvider>
+      <Layout>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="counter" element={<Counter />} />
+          <Route path="users" element={<Users />} />
+          <Route path="about" element={<About />} />
+          <Route path="carousel" element={<Carousel />} />
+          <Route path="film/:idFilm" element={<Film />} />
+          <Route path="home" element={<HomeTest />} />
+          <Route path="test" element={<Playground />} />
+        </Routes>
+      </Layout>
+    </AuthProvider>
   );
 }
 

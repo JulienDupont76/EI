@@ -1,9 +1,11 @@
-import { useRef, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 import { Rerousel } from 'rerousel';
 import { useNavigate } from 'react-router-dom';
 import './Recommandation.css';
+import { AuthContext } from '../Authentification/Auth';
 
 const Recommandation = ({ movies }) => {
+  const { isAuthenticated, user, login, logout } = useContext(AuthContext);
   const [isHovered, setIsHovered] = useState(false);
   const test = useRef(null);
   const navigate = useNavigate();
@@ -24,7 +26,10 @@ const Recommandation = ({ movies }) => {
       }}
     >
       <h1 style={{ padding: '20px', margin: '0' }}>
-        Recommandations pour Juju
+        Recommandations{' '}
+        {isAuthenticated
+          ? `pour ${user.username}`
+          : '(se connecter pour personnaliser)'}
       </h1>
       {movies.length && (
         <Rerousel

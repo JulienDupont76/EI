@@ -1,24 +1,37 @@
 import express from 'express';
-import { In } from 'typeorm';
+import { ILike } from 'typeorm';
 import { appDataSource } from '../datasource.js';
-import Movie from '../entities/movie.js';
 import CreateMovie from '../utils/CreateMovie.js';
 import Genre from '../entities/genre.js';
-import Collection from '../entities/collection.js';
+import Movie from '../entities/movie.js';
 
 const router = express.Router();
 
-router.get('/:id', (req, res) => {
+router.get('/research', (req, res) => {
+  appDataSource
+    .getRepository(Movie)
+    .find({ where: { title: ILike(`%${req.query.research}%`) } })
+    .then(function (movies) {
+      res.json(movies);
+    })
+    .catch(function (error) {
+      console.error(error);
+      res.status(500).json({
+        error: "Une erreur s'est produite lors de la recherche des films.",
+      });
+    });
+});
+
+router.get('/:id', async (req, res) => {
   const genreRepository = appDataSource.getRepository(Genre);
-  const collectionRepository = appDataSource.getRepository(Collection);
+  const movieRepository = appDataSource.getRepository(Movie);
   const newGenre = genreRepository.create({
-    name: 'Horreur',
+    name: 'Anime',
   });
-  collectionRepository
-    .findByIds([1, 2]) // Remplacez [1, 2] par les identifiants des collections que vous souhaitez associer
-    .then((collections) => {
-      newGenre.collections = collections;
-      console.log(newGenre.collections);
+  movieRepository
+    .findByIds([84, 85]) // Remplacez [1, 2] par les identifiants des collections que vous souhaitez associer
+    .then((movies) => {
+      newGenre.movies = movies;
       genreRepository
         .save(newGenre) // Utilisez la méthode "save" pour enregistrer l'entité avec la relation many-to-many
         .then(function (newDocument) {
@@ -52,7 +65,7 @@ router.get('/:id', (req, res) => {
     });
 });*/
 
-router.get('/test/oui', (req, res) => {
+/*router.get('/test/oui', (req, res) => {
   appDataSource
     .getRepository(Genre)
     .find({
@@ -67,11 +80,12 @@ router.get('/test/oui', (req, res) => {
         res.json(films);
       }
     });
-});
+});*/
 
 router.post('/new', function (req, res) {
-  const userRepository = appDataSource.getRepository(Movie);
-  CreateMovie(req.body, res, userRepository);
+  //const userRepository = appDataSource.getRepository(Movie);
+  console.log('test');
+  CreateMovie(req.body, res);
 });
 
 export default router;

@@ -13,14 +13,6 @@ const Collection = new typeorm.EntitySchema({
       unique: true,
     },
   },
-  relations: {
-    genres: {
-      type: 'many-to-many',
-      target: 'Genre',
-      joinTable: true,
-      cascade: true,
-    },
-  },
 });
 
 export default Collection;

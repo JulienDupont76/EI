@@ -50,4 +50,13 @@ router.delete('/:userId', function (req, res) {
     });
 });
 
+router.get('/connection', (req, res) => {
+  appDataSource
+    .getRepository(User)
+    .find({ where: { firstname: 'Julien' } })
+    .then(function (users) {
+      res.json(users[0]);
+    });
+});
+
 export default router;

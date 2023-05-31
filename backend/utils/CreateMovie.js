@@ -1,4 +1,8 @@
-const CreateMovie = (movie, res, userRepository) => {
+import { appDataSource } from '../datasource.js';
+import Movie from '../entities/movie.js';
+
+const CreateMovie = (movie, res) => {
+  const userRepository = appDataSource.getRepository(Movie);
   const newMovie = userRepository.create({
     title: movie.title,
     overview: movie.overview,
@@ -24,16 +28,22 @@ const CreateMovie = (movie, res, userRepository) => {
   userRepository
     .insert(newMovie)
     .then(function (newDocument) {
-      res.status(201).json(newDocument);
+      if (res !== null) {
+        res.status(201).json(newDocument);
+      }
     })
     .catch(function (error) {
       console.error(error);
       if (error.code === '23505') {
-        res.status(400).json({
-          message: `User with email "${newMovie.title}" already exists`,
-        });
+        if (res !== null) {
+          res.status(400).json({
+            message: `User with email "${newMovie.title}" already exists`,
+          });
+        }
       } else {
-        res.status(500).json({ message: 'Error while creating the movie' });
+        if (res !== null) {
+          res.status(500).json({ message: 'Error while creating the movie' });
+        }
       }
     });
 };

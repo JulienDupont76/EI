@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Lifipe from '../Home/Lifipe';
+import fetchResearch from '../../utils/fetchResearch';
 
 const ListeFilm = () => {
+  const [research, setResearch] = useState('');
+  const [researchData, setResearchData] = useState([]);
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
@@ -28,6 +31,10 @@ const ListeFilm = () => {
     fetchMovies();
   }, []);
 
+  useEffect(() => {
+    fetchResearch(setResearchData, 'movies/research', research);
+  }, [research]);
+
   const handleScroll = () => {
     if (
       window.innerHeight + document.documentElement.scrollTop !==
@@ -47,7 +54,22 @@ const ListeFilm = () => {
 
   return (
     <div style={{ color: '#000' }}>
-      <h1 style={{ padding: '30px' }}>Liste des films</h1>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'flex-start',
+          alignItems: 'center',
+        }}
+      >
+        <h1 style={{ padding: '30px' }}>Liste des films</h1>
+        <input
+          type="text"
+          value={research}
+          onChange={(e) => {
+            setResearch(e.target.value);
+          }}
+        />
+      </div>
       <div
         style={{
           display: 'flex',
@@ -57,16 +79,20 @@ const ListeFilm = () => {
           flexWrap: 'wrap',
         }}
       >
-        {items.map((m) => {
-          return <Lifipe key={m.id} movie={m} />;
-        })}
+        {research === ''
+          ? items.map((m) => {
+              return <Lifipe key={m.id} movie={m} />;
+            })
+          : researchData.map((m) => {
+              return <Lifipe key={m.id} movie={m} />;
+            })}
       </div>
       {isLoading && (
         <div style={{ display: 'flex', justifyContent: 'center' }}>
           <div style={{ width: '200px', height: '200px' }}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              xmlns:xmlnsXlink="http://www.w3.org/1999/xlink"
+              xmlnsXlink="http://www.w3.org/1999/xlink"
               style={{
                 margin: 'auto',
                 background: '#fff',
