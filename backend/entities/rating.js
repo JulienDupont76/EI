@@ -10,7 +10,7 @@ const Rating = new typeorm.EntitySchema({
     },
     movie_id: { type: Number },
     user_id: { type: Number },
-    rating:{type: int}
+    rating: { type: Number },
   },
 });
 

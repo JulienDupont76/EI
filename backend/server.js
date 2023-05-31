@@ -3,6 +3,7 @@ import logger from 'morgan';
 import cors from 'cors';
 import indexRouter from './routes/index.js';
 import usersRouter from './routes/users.js';
+import addMoviesRouter from './routes/addMovies.js';
 import moviesRouter from './routes/movie.js';
 import { routeNotFoundJsonHandler } from './services/routeNotFoundJsonHandler.js';
 import { jsonErrorHandler } from './services/jsonErrorHandler.js';
@@ -22,7 +23,8 @@ app.use(express.urlencoded({ extended: false }));
 // Register routes
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/movies', moviesRouter);
+app.use('/movies', addMoviesRouter);
+// app.use('/movies', moviesRouter);
 
 // Register 404 middleware and error handler
 app.use(routeNotFoundJsonHandler); // this middleware must be registered after all routes to handle 404 correctly

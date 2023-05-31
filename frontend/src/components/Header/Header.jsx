@@ -16,6 +16,10 @@ const Header = () => {
         Users
       </Link>
       <div>|</div>
+      <Link className="Link" to="/movies">
+        Add movies
+      </Link>
+      <div>|</div>
       <Link className="Link" to="/about">
         About
       </Link>
