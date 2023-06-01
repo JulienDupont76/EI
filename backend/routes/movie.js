@@ -53,6 +53,9 @@ router.get('/:id', async (req, res) => {
       res.status(500).json({ message: 'Error while fetching collections' });
     });
 });
+
+// router.get('/movies', (req, res) => {});
+
 /*appDataSource
     .getRepository(Movie)
     .findOne({ where: { idTMDB: req.params.id } })
