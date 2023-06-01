@@ -22,8 +22,37 @@ router.get('/research', (req, res) => {
     });
 });
 
+router.get('/all', (req, res) => {
+  const itemsPerPage = 20;
+  const currentPage = parseInt(req.query.page) || 1;
+  const skipCount = (currentPage - 1) * itemsPerPage;
+  appDataSource
+    .getRepository(Movie)
+    .find({ skip: skipCount, take: itemsPerPage })
+    .then(function (movies) {
+      res.json(movies);
+    })
+    .catch(function (error) {
+      console.error(error);
+      res.status(500).json({
+        error: "Une erreur s'est produite lors de la recherche des films.",
+      });
+    });
+});
+
 router.get('/:id', async (req, res) => {
-  const genreRepository = appDataSource.getRepository(Genre);
+  appDataSource
+    .getRepository(Movie)
+    .findOne({ where: { id: req.params.id } })
+    .then(function (films) {
+      if (films === null) {
+        res.json({ erreur: "Le film recherché n'existe pas" });
+      } else {
+        res.json(films);
+      }
+    });
+});
+/* const genreRepository = appDataSource.getRepository(Genre);
   const movieRepository = appDataSource.getRepository(Movie);
   const newGenre = genreRepository.create({
     name: 'Anime',
@@ -51,17 +80,6 @@ router.get('/:id', async (req, res) => {
     .catch(function (error) {
       console.error(error);
       res.status(500).json({ message: 'Error while fetching collections' });
-    });
-});
-/*appDataSource
-    .getRepository(Movie)
-    .findOne({ where: { idTMDB: req.params.id } })
-    .then(function (films) {
-      if (films === null) {
-        res.json({ erreur: "Le film recherché n'existe pas" });
-      } else {
-        res.json(films);
-      }
     });
 });*/
 
