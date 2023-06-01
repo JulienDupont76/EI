@@ -17,9 +17,9 @@ const ListeFilm = () => {
 
     try {
       const response = await axios.get(
-        `https://api.themoviedb.org/3/movie/popular?language=fr&page=${page}&api_key=522d421671cf75c2cba341597d86403a&language=fr-FR`
+        `http://localhost:8000/movies/all?page=${page}`
       );
-      setItems((prevItems) => [...prevItems, ...response.data.results]);
+      setItems((prevItems) => [...prevItems, ...response.data]);
       setPage(page + 1);
     } catch (error) {
       setErrorMessage(error);

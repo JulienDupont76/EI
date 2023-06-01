@@ -7,7 +7,6 @@ const fetchResearch = (setData, parameters, research) => {
     .get(`${api_url}${parameters}?research=${research}`)
     .then((response) => {
       setData(response.data);
-      console.log(response.data);
     })
     .catch((error) => {
       console.error(error);

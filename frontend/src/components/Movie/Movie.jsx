@@ -1,8 +1,6 @@
 import './Movie.css';
 
 const Movie = ({ movies, search }) => {
-  console.log(movies);
-
   return (
     <div className="container">
       <table className="movies-table">

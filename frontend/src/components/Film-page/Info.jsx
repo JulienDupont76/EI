@@ -1,15 +1,15 @@
 import './Info.css';
 import { useEffect, useState } from 'react';
-import fetchMovieData from '../../utils/fetchMovieData';
+import fetchMovies from '../../utils/fetchMovies';
 import translateFilmStatus from '../../utils/translateFilmStatus';
 import formatPrix from '../../utils/formatPrice';
 
 const Info = ({ idFilm }) => {
-  const [movieData, setMovieData] = useState([]);
+  const [movieData, setMovieData] = useState({});
 
   const languageNames = new Intl.DisplayNames(['fr'], { type: 'language' });
 
-  useEffect(() => fetchMovieData(setMovieData, idFilm), []);
+  useEffect(() => fetchMovies(setMovieData, `movies/${idFilm}`), []);
 
   return (
     <div className="container-info">

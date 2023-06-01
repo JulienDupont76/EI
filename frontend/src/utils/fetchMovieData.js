@@ -1,16 +1,14 @@
 import axios from 'axios';
 
-const fetchMovieData = (setMovieData, idFilm) => {
+const fetchMovieData = (setMovieData, parameters) => {
+  const api_url = 'http://localhost:8000/';
   axios
-    .get(
-      `https://api.themoviedb.org/3/movie/${idFilm}?language=fr&api_key=522d421671cf75c2cba341597d86403a`
-    )
+    .get(`${api_url}${parameters}`)
     .then((response) => {
-      setMovieData(response.data);
+      setMovieData(response.data[0]);
     })
     .catch((error) => {
       console.error(error);
-      setMovieData(null);
     });
 };
 
