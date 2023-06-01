@@ -5,25 +5,25 @@ import Description from '../../components/Film-page/Description';
 import Info from '../../components/Film-page/Info';
 import BandeAnnonce from '../../components/Film-page/Bande-annonce';
 import Similaire from '../../components/Film-page/Similaire';
-import fetchMovieData from '../../utils/fetchMovieData';
+import fetchMovies from '../../utils/fetchMovies';
 
 const Film = () => {
   const { idFilm } = useParams();
-  const [movie, setMovie] = useState([]);
+  const [movie, setMovie] = useState({});
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetchMovieData(setMovie, idFilm);
+    fetchMovies(setMovie, `movies/${idFilm}`);
   }, []);
 
   return (
     <>
-      {movie ? (
+      {movie.id ? (
         <>
           <Description idFilm={idFilm} />
           <Info idFilm={idFilm} />
-          <BandeAnnonce idFilm={idFilm} />
-          <Similaire idFilm={idFilm} />
+          <BandeAnnonce idFilm={movie.idTMDB} />
+          <Similaire idFilm={movie.idTMDB} />
         </>
       ) : (
         navigate(`/home`)

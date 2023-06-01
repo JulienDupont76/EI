@@ -6,7 +6,7 @@ import fetchMovies from '../../utils/fetchMovies';
 const HomeTest = () => {
   const [movies, setMovies] = useState([]);
 
-  useEffect(() => fetchMovies(setMovies), []);
+  useEffect(() => fetchMovies(setMovies, 'movies/all'), []);
 
   return (
     <>

@@ -1,14 +1,14 @@
 import { BsHeartFill } from 'react-icons/bs';
 import './Description.css';
 import { useEffect, useState } from 'react';
-import fetchMovieData from '../../utils/fetchMovieData';
+import fetchMovies from '../../utils/fetchMovies';
 import convertDateUStoFR from '../../utils/DateUStoFR';
 import convertMinutesToHoursMinutes from '../../utils/TimeMinutesToHoursMinutes';
 
 const Description = ({ idFilm }) => {
-  const [movieData, setMovieData] = useState([]);
+  const [movieData, setMovieData] = useState({});
 
-  useEffect(() => fetchMovieData(setMovieData, idFilm), []);
+  useEffect(() => fetchMovies(setMovieData, `movies/${idFilm}`), []);
 
   return (
     <div
@@ -37,11 +37,12 @@ const Description = ({ idFilm }) => {
                   convertDateUStoFR(movieData.release_date)}{' '}
                 (FR)
               </p>
-              {movieData.genres && (
+              {/*movieData.genres && (
                 <p style={{ fontSize: '20px' }}>
                   {movieData.genres.map((element) => element.name).join(', ')}
                 </p>
-              )}
+              )*/}
+              <p style={{ fontSize: '20px' }}>A venir</p>
               {movieData.runtime !== 0 && (
                 <p style={{ fontSize: '20px' }}>
                   {convertMinutesToHoursMinutes(movieData.runtime)}

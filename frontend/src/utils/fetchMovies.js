@@ -1,12 +1,11 @@
 import axios from 'axios';
 
-const fetchMovies = (setMovies) => {
+const fetchMovies = (setMovies, parameters) => {
+  const api_url = 'http://localhost:8000/';
   axios
-    .get(
-      `https://api.themoviedb.org/3/movie/popular?api_key=522d421671cf75c2cba341597d86403a&language=fr-FR`
-    )
+    .get(`${api_url}${parameters}`)
     .then((response) => {
-      setMovies(response.data.results);
+      setMovies(response.data);
     })
     .catch((error) => {
       console.error(error);
