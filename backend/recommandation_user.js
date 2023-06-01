@@ -3,224 +3,174 @@ import { User } from './entities/user.js';
 import { Movie } from './entities/movies.js';
 import { Collection } from './entities/collections.js';
 import { Genre } from './entities/genres.js';
+import { UserMovie } from './entities/users_movies.js';
 import { GenreMovie } from './entities/genres_movies.js';
 
 // Récupération de données importantes pour la suite de la BDD
-function get_data(){
-  Promise.all([
-    appDataSource.getRepository(Genres).count(),
-    appDataSource.getRepository(Collections).count(),
+async function get_data() {
+  const [nb_genres, nb_collections, movie_pop_max] = await Promise.all([
+    appDataSource.getRepository(Genre).count(),
+    appDataSource.getRepository(Collection).count(),
     appDataSource.getRepository(Movie).findOne({
       order: {
         popularity: 'DESC'
       }
     })
-  ]).then(function ([number_genres, number_collections, movie_pop_max]) {
-    const nb_genres = number_genres;
-    const nb_collections = number_collections;
-    const popularity_max = movie_pop_max.popularity
-  });
-    return [nb_genres,nb_collections,popularity_max]
-  }
-
-function get_collection(movieId){
-  appDataSource.getRepository(Movie).find({
-    where: {
-      id_movie: movieId
-    }
-  }).then(function (movies) {
-    const collection = genreMovies.map((movie) => movie.collection[0]);
-    return collection
-  });
+  ]);
+  return [nb_genres, nb_collections, movie_pop_max.popularity];
 }
 
-function get_genres(movie) {
-  const movieId = movie.id;
-  appDataSource.getRepository(GenreMovie).find({
+async function get_collection(movieId) {
+  const movies = await appDataSource.getRepository(Movie).find({
     where: {
       id_movie: movieId
     }
-  }).then(function (genreMovies) {
-    // Extraire les genres de la relation genre_movie
-    const genres = genreMovies.map((genreMovie) => genreMovie.id_genre);
-    return genres
   });
-};
+  const collection = movies.map((movie) => movie.collection)[0];
+  return collection;
+}
 
-function get_watched(userId) {
-  appDataSource.getRepository(userMovie).find({
-    where: {
-      id_user: userId,
-      watched: true
-  }}).then(function (userWatched) {
-    // Extraire les genres de la relation genre_movie
-    const watched = userWatched.map((userMovie) => userMovie.id_movie);
-    return watched
-  });
-};
-
-function get_nb_watched_genres(watched,number_genres){
-  const v = Array(number_genres).fill(0);
-  watched.forEach(function(movieId, index) {
-    appDataSource.getRepository(GenreMovie).find({
+async function get_genres(movieId) {
+  const genres = await appDataSource
+    .getRepository(GenreMovie)
+    .find({
       where: {
-        id_movie: movieId
-      }
-    }).then(function (genreMovies) {
-      // Extraire les genres de la relation genre_movie
-      const genres = genreMovies.map((genreMovie) => genreMovie.id_genre);
-  });
-  genres.forEach((genreId,index) => { v[genreId] += 1; });
-})
-  return v
-  }
+        movie: movieId
+      },
+    })
+    .then((genreMovies) => genreMovies.map((gm) => gm.id_genre));
+  return genres;
+}
 
+async function get_watched(userId) {
+  const user = await appDataSource
+    .getRepository(UserMovie)
+    .findOne({
+      where: {
+        id_user: userId,
+        watched: true
+      },
+    })
+    .then((userMovie) => userMovie.id_movie);
+  return user;
+}
 
-function get_nb_watched_collections(watched,number_collections){
+async function get_nb_watched_genres(watched, number_genres) {
+  const v = Array(number_genres).fill(0);
+  await Promise.all(
+    watched.map(async (movie) => {
+      const genres = await get_genres(movie.id_movie);
+      genres.forEach((genre) => {
+        v[genre.id_genre - 1]++;
+      });
+    })
+  );
+  return v;
+}
+
+async function get_nb_watched_collections(watched, number_collections) {
   const v = Array(number_collections).fill(0);
-  watched.forEach(function(movieId, index) {
-    id_collection = get_collection(movieId);
-    v[id_collection] += 1;})
-  return v
-  }
+  await Promise.all(
+    watched.map(async (movie) => {
+      const id_collection = await get_collection(movie.id_movie);
+      v[id_collection - 1]++;
+    })
+  );
+  return v;
+}
 
-function get_popularity_normalized(movieId){
-  appDataSource.getRepository(Movie).find({
+async function get_popularity_normalized(movieId,popularity_max) {
+  const movie = await appDataSource.getRepository(Movie).findOne({
     where: {
       id_movie: movieId
     }
-  }).then(function (movies) {
-    // Extraire les genres de la relation genre_movie
-    const movie_pop = movies.map((movie) => movie.popularity)[0]; //Il n'y a qu'une ligne
-});
-  return movie_pop/movie_pop_max
+  });
+  return movie.popularity / popularity_max;
 }
 
-function normalise(vector){
+function normalize(vector) {
   let cst_normalise = 0;
   vector.forEach((element) => { if (element !== 0){
     cst_normalise += 1;
   }});
   vector.map((element)=> element/cst_normalise);
   return vector
-
-}
-// Représentation d'un utilisateur et d'un movie sous la forme d'un vecteur
-function content_user(userId, number_genres, number_collections){
-    const vector = [];
-    //Pour les coordonnées de 0 à nb_collections-1, vaut le nombre de films vus appartenant au genre associé
-    watched = get_watched(userId);
-    nb_watched_genres = get_nb_watched_genres(watched,number_genres);
-    for (let i = 0; i < nb_watched_genres.length; i++) {
-      vector.push(nb_watched_genres[i])
-    };
-    nb_watched_collections = get_nb_watched_collections(watched,number_collections);
-    for (let i = 0; i < nb_watched_collections.length; i++) {
-      vector.push(nb_watched_genres[i+nb_watched_genres.length])
-    };
-    return normalise(vector)
 }
 
-function content_movie(movieId,number_genres,number_collections){
-    const vector = [];
-    //Pour les coordonnées de 0 à nb_collections-1, vaut 1 si le film appartient à la dite-collection, 0 sinon
-    let id_collection = get_collection(movieId);
-    if (id_collection == null) {
-      for (let i = 0; i < number_collections; i++) {
-        vector.push(0);
-      }
-    }
-    else {
-      for (let i = 0; i < number_collections; i++) {
-        if (i === id_collection) {
-          vector.push(1);
-        }
-        else {
-          vector.push(0);
-        }
-      }
-    }
-    // Pour les coordonnées de nb_collections à nb_collections+nb_genres-1, vaut 1 si le film est du genre concerné, 0 sinon
-    const genres = get_genres(movie)
-    if (id_collection === null) {
-      for (let i = 0; i < number_collections; i++) {
-        vector.push(0);
-      }
-    }
-    else {
-      for (let i = number_collections; i < number_collections+number_genres; i++) {
-        if (genres.inclues(i)) {
-          vector.push(1);
-        }
-        else {
-          vector.push(0);
-        }
-      }
-    }
-    return vector
+async function content_user(userId, number_genres, number_collections) {
+  const watched = await get_watched(userId);
+  const nb_watched_genres = await get_nb_watched_genres(watched, number_genres);
+  const nb_watched_collections = await get_nb_watched_collections(watched, number_collections);
+  const normalized_genres = normalize(nb_watched_genres);
+  const normalized_collections = normalize(nb_watched_collections);
+  const userVector = normalized_genres.concat(normalized_collections);
+  return userVector;
+}
 
-};
-
-
-
-// Calcul de la similarité entre un utilisateur et un  film
+async function content_movie(movieId, number_genres, number_collections) {
+  const collections = await get_collection(movieId);
+  const genres = await get_genres(movieId);
+  const vector = Array(number_genres + number_collections).fill(0);
+  collections.forEach((collection) => {
+    vector[collection - 1] = 1;
+  });
+  genres.forEach((genre) => {
+    vector[genre.id_genre - 1] = 1;
+  });
+  return vector;
+}
 
 function dotProduct(vector1, vector2) {
-    if (vector1.length !== vector2.length) {
-      throw new Error("Les vecteurs doivent avoir la même taille");
-    }
-  
-    let result = 0;
-    for (let i = 0; i < vector1.length; i++) {
-      result += vector1[i] * vector2[i];
-    }
-  
-    return result;
+  if (vector1.length !== vector2.length) {
+    throw new Error('Vector lengths do not match.');
+  }
+  let result = 0;
+  for (let i = 0; i < vector1.length; i++) {
+    result += vector1[i] * vector2[i];
+  }
+  return result;
+}
+
+async function content_similarity(userId, movieId, number_genres, number_collections, popularity_max) {
+  const userVector = await content_user(userId, number_genres, number_collections);
+  const movieVector = await content_movie(movieId, number_genres, number_collections);
+  const popularity_normalized = await get_popularity_normalized(movieId, popularity_max);
+  const movie_norm = Math.sqrt(dotProduct(movie_vector,movie_vector));
+  const user_norm = Math.sqrt(dotProduct(user_vector,user_vector));
+  if ((movie_norm !== 0)&&(user_norm !==0)){
+      let cos = dotProduct(movie_vector, user_vector)/(movie_norm*user_norm);
+      let weight_cos = Math.min(nb*cos,50);
+      let weight_pop = Math.max(0,(50-nb));
+      let similarity = (weight_cos*cos - weight_pop*pop)/50;
+  } else {
+    let similarity = 0;
   };
-
-function content_similarity(userId, movieId){
-    const nb = get_watched(userId).length; //Nombre de films vus par user
-    const pop = get_popularity_normalized(movieId); //Popularité du film
-    const [nb_genres, nb_collections, popularity_max] = get_data();
-    const movie_vector = content_movie(movieid, nb_genres, nb_collections);
-    const user_vector = content_user(userId, nb_genres, nb_collections);
-    const movie_norm = Math.sqrt(dotProduct(movie_vector,movie_vector));
-    const user_norm = Math.sqrt(dotProduct(user_vector,user_vector));
-    if ((movie_norm !== 0)&&(user_norm !==0)){
-        let cos = dotProduct(movie_vector, user_vector)/(movie_norm*user_norm);
-        let weight_cos = Math.min(nb*cos,50);
-        let weight_pop = Math.max(0,(50-nb));
-        let result = (weight_cos*cos - weight_pop*pop)/50;
-    }
-    else{ let result = 0 ;}
-    return result;
-};
-
-// Pour renvoyer un classement des movies les plus pertinents pour un utilisateur, avec la similiarité associée
+  return similarity
+}
 
 function comparer(a, b) {
-    const valeurA = a[0];
-    const valeurB = b[0];
-    
-    if (valeurA < valeurB) {
-      return -1;
-    } else if (valeurA > valeurB) {
-      return 1;
-    } else {
-      return 0;
-    }
-  };
+  if (a[0] < b[0]) {
+    return 1;
+  }
+  if (a[0] > b[0]) {
+    return -1;
+  }
+  return 0;
+}
 
-// Fonction finale : prend en arguments un utilisateur et l'ensemble des films contenus dans la base de données, et renvoie
-// les films ordonnés du plus recommandable au moins recommandable
-
-function content_ranking(userId, moviesId){
+async function content_ranking(userId, moviesId, number_genres, number_collections, popularity_max) {
   const rank = [];
-  movies.forEach((movieId) => {
-    let similarity = content_similarity(userId,movieId);
-    rank.push((similarity,movieId))
-})
+  for (const movieId of moviesId) {
+    const similarity = await content_similarity(userId, movieId, number_genres, number_collections, popularity_max);
+    rank.push([similarity, movieId]);
+  }
   rank.sort(comparer);
-  const movieIds = rank.map((pair) => pair[1]);
-  return movieIds
+  const recommendedMovies = rank.map((pair) => pair[1]);
+  return recommendedMovies;
+}
+
+async function recommend(userId, moviesId) {
+  const [number_genres, number_collections,popularity_max] = await get_data();
+  const recommendedMovies = await content_ranking(userId, moviesId, number_genres, number_collections);
+  return recommendedMovies;
 }

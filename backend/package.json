@@ -9,7 +9,7 @@
     "lint": "eslint . --fix",
     "migration:generate": "dotenv -- typeorm --dataSource='./datasource.js' migration:generate --outputJs --pretty migrations/$npm_config_name",
     "postmigration:generate": "bash ./postmigration.sh",
-    "migration:run": "dotenv -- typeorm --dataSource='./datasource.js' migration:run",
+    "migration:run": "npx dotenv -- typeorm --dataSource='./datasource.js' migration:run",
     "migration:revert": "dotenv -- typeorm --dataSource='./datasource.js' migration:revert"
   },
   "dependencies": {
