@@ -1,10 +1,8 @@
 import axios from 'axios';
 
 const fetchAPI = (setData, parameters) => {
-  const api_url = 'http://localhost:8000/';
-
   axios
-    .get(`${api_url}${parameters}`)
+    .get(`${import.meta.env.VITE_BACKEND_URL}${parameters}`)
     .then((response) => {
       setData(response.data);
       localStorage.setItem('user', JSON.stringify(response.data));

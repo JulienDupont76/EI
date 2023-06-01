@@ -1,10 +1,10 @@
 import axios from 'axios';
 
 const fetchResearch = (setData, parameters, research) => {
-  const api_url = 'http://localhost:8000/';
-
   axios
-    .get(`${api_url}${parameters}?research=${research}`)
+    .get(
+      `${import.meta.env.VITE_BACKEND_URL}${parameters}?research=${research}`
+    )
     .then((response) => {
       setData(response.data);
     })

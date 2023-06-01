@@ -1,9 +1,8 @@
 import axios from 'axios';
 
 const fetchMovies = (setMovies, parameters) => {
-  const api_url = 'http://localhost:8000/';
   axios
-    .get(`${api_url}${parameters}`)
+    .get(`${import.meta.env.VITE_BACKEND_URL}${parameters}`)
     .then((response) => {
       setMovies(response.data);
     })
