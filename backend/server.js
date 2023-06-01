@@ -21,10 +21,10 @@ appDataSource
     app.use(express.urlencoded({ extended: false }));
 
     // Register routes
-    app.use('/', indexRouter);
-    app.use('/users', usersRouter);
-    app.use('/movies', moviesRouter);
-    app.use('/tmdb', tmdbRouter);
+    app.use('api/', indexRouter);
+    app.use('api/users', usersRouter);
+    app.use('api/movies', moviesRouter);
+    app.use('api/tmdb', tmdbRouter);
 
     // Register 404 middleware and error handler
     app.use(routeNotFoundJsonHandler); // this middleware must be registered after all routes to handle 404 correctly
