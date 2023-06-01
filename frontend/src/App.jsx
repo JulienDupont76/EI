@@ -8,6 +8,7 @@ import Carousel from './pages/Carousel/Carousel';
 import Film from './pages/Film-page/Film-page';
 import HomeTest from './pages/HomeTest/HomeTest';
 import Playground from './pages/Playground/Playground';
+import Login from './pages/Login/Login';
 import { AuthProvider } from './components/Authentification/Auth';
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
           <Route path="film/:idFilm" element={<Film />} />
           <Route path="home" element={<HomeTest />} />
           <Route path="test" element={<Playground />} />
+          <Route path="login" element={<Login />} />
         </Routes>
       </Layout>
     </AuthProvider>
