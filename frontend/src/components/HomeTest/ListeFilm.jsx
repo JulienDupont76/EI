@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Lifipe from '../Home/Lifipe';
 import fetchResearch from '../../utils/fetchResearch';
+import './ListeFilm.css';
 
 const ListeFilm = () => {
   const [research, setResearch] = useState('');
@@ -57,18 +58,23 @@ const ListeFilm = () => {
       <div
         style={{
           display: 'flex',
-          justifyContent: 'flex-start',
+          justifyContent: 'space-between',
           alignItems: 'center',
         }}
       >
         <h1 style={{ padding: '30px' }}>Liste des films</h1>
-        <input
-          type="text"
-          value={research}
-          onChange={(e) => {
-            setResearch(e.target.value);
-          }}
-        />
+        <div className="search-container">
+          <input
+            type="text"
+            name="search"
+            placeholder="Rechercher ..."
+            value={research}
+            className="search-input"
+            onChange={(e) => {
+              setResearch(e.target.value);
+            }}
+          />
+        </div>
       </div>
       <div
         style={{
