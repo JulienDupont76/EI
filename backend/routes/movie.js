@@ -81,6 +81,20 @@ router.get('/:id', async (req, res) => {
       console.error(error);
       res.status(500).json({ message: 'Error while fetching collections' });
     });
+});
+
+// router.get('/movies', (req, res) => {});
+
+/*appDataSource
+    .getRepository(Movie)
+    .findOne({ where: { idTMDB: req.params.id } })
+    .then(function (films) {
+      if (films === null) {
+        res.json({ erreur: "Le film recherché n'existe pas" });
+      } else {
+        res.json(films);
+      }
+    });
 });*/
 
 /*router.get('/test/oui', (req, res) => {

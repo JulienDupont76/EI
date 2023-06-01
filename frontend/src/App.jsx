@@ -9,6 +9,7 @@ import Film from './pages/Film-page/Film-page';
 import HomeTest from './pages/HomeTest/HomeTest';
 import Playground from './pages/Playground/Playground';
 import { AuthProvider } from './components/Authentification/Auth';
+import AddMovieForm from './pages/AddMovieForm/AddMovieForm';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="film/:idFilm" element={<Film />} />
           <Route path="home" element={<HomeTest />} />
           <Route path="test" element={<Playground />} />
+          <Route path="movies" element={<AddMovieForm />} />
         </Routes>
       </Layout>
     </AuthProvider>

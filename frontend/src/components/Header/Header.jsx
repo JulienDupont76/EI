@@ -14,6 +14,10 @@ const Header = () => {
           L'assistant personnel de recommandation de film
         </p>
       </Link>
+      <Link className="logo" to="/movies">
+        {/* <img src="imgs/Add.png" alt="" /> */}
+        <p className="connection">Add a movie</p>
+      </Link>
       <div className="connection" onClick={isAuthenticated ? logout : login}>
         <p>{isAuthenticated ? `Bienvenue ${user.username}` : 'Se connecter'}</p>
       </div>
