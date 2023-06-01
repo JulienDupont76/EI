@@ -18,7 +18,7 @@ const ListeFilm = () => {
 
     try {
       const response = await axios.get(
-        `http://localhost:8000/movies/all?page=${page}`
+        `${import.meta.env.VITE_BACKEND_URL}movies/all?page=${page}`
       );
       setItems((prevItems) => [...prevItems, ...response.data]);
       setPage(page + 1);
