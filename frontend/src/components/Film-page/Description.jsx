@@ -24,7 +24,9 @@ const Description = ({ idFilm }) => {
   const handleClickLike = () => {
     setIsLiked(!isLiked);
     const formValues = {
-      isLiked: isLiked,
+      idmovie: idFilm,
+      iduser: 0,
+      vote: isLiked ? 1 : 0,
     };
     axios.post(`${import.meta.env.VITE_BACKEND_URL}/like/`, formValues);
   };

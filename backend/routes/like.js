@@ -6,7 +6,6 @@ import { appDataSource } from '../datasource.js';
 import UserMovie from '../entities/user_movie.js';
 
 router.post('/', function (req, res) {
-  //   const isLiked = req.body.isLiked;
   const userMovieRep = appDataSource.getRepository(UserMovie);
   //req.body.password = hash(req.body.password)
   const newLike = userMovieRep.create(req.body);
@@ -23,7 +22,7 @@ router.post('/', function (req, res) {
           message: '',
         });
       } else {
-        res.status(500).json({ message: 'Error while creating the user' });
+        res.status(500).json({ message: 'Error while liking' });
       }
     });
 });
