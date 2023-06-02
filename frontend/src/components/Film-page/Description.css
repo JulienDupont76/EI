@@ -85,6 +85,18 @@
   width: 4em;
   height: 4em;
 
+  color: #fff;
+  background-color: rgb(3, 37, 65);
+  border-radius: 50%;
+}
+
+.notlike {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 4em;
+  height: 4em;
+
   background-color: rgb(3, 37, 65);
   border-radius: 50%;
 }

@@ -1,6 +1,7 @@
 import { BsHeartFill } from 'react-icons/bs';
 import './Description.css';
 import { useEffect, useState } from 'react';
+import axios from 'axios';
 import fetchMovies from '../../utils/fetchMovies';
 import convertDateUStoFR from '../../utils/DateUStoFR';
 import convertMinutesToHoursMinutes from '../../utils/TimeMinutesToHoursMinutes';
@@ -17,6 +18,16 @@ const Description = ({ idFilm }) => {
   for (const genre of genreData) {
     genre_tri[genre.id] = genre.name;
   }
+
+  const [isLiked, setIsLiked] = useState(false);
+
+  const handleClickLike = () => {
+    setIsLiked(!isLiked);
+    const formValues = {
+      isLiked: isLiked,
+    };
+    axios.post(`${import.meta.env.VITE_BACKEND_URL}/like/`, formValues);
+  };
 
   return (
     <div
@@ -101,9 +112,12 @@ const Description = ({ idFilm }) => {
                 <p style={{ fontSize: '20px' }}>Note des utilisateurs</p>
                 <span>80%</span>
               </div>
-              <div className="like">
+              <button
+                onClick={handleClickLike}
+                className={isLiked ? 'like' : 'notlike'}
+              >
                 <BsHeartFill />
-              </div>
+              </button>
             </div>
           </section>
         </div>
