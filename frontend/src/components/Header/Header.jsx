@@ -11,10 +11,19 @@ const Header = () => {
   return (
     <div className="Header-container">
       <Link className="logo" to="/">
-        <img src='../../../public/assets/Logo.png' style={{height:"100%", width:"300px"}}/>
+        <img
+          src="./assets/Logo.png"
+          style={{ height: '100%', width: '300px' }}
+        />
       </Link>
       {isAuthenticated ? (
-        <div style={{display:'flex',justifyContent:'flex-end', alignItems:'center'}}>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'flex-end',
+            alignItems: 'center',
+          }}
+        >
           <div className="connection">
             <p>Bienvenue {user.username}</p>
           </div>
