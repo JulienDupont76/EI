@@ -1,17 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
-import { useNavigate, Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { BsEyeFill, BsEyeSlashFill } from 'react-icons/bs';
 import { AuthContext } from '../../components/Authentification/Auth';
 import './Login.css';
-import { BsEyeFill, BsEyeSlashFill } from 'react-icons/bs';
 
 const Login = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
   const [passwordShown, setPasswordShown] = useState(false);
   const navigate = useNavigate();
 
-  const { isAuthenticated, setIsAuthenticated, user, setUser, login, logout } =
+  const { isAuthenticated, setIsAuthenticated, setUser } =
     useContext(AuthContext);
 
   useEffect(() => {
@@ -78,10 +76,8 @@ const Login = () => {
               </button>
             </div>
           </div>
-          <Link className='inscription' to='/inscription'>
-          <p>
-            S'inscrire
-          </p>
+          <Link className="inscription" to="/inscription">
+            <p>S'inscrire</p>
           </Link>
         </form>
       </div>

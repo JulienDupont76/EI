@@ -1,17 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
-import { useNavigate, Link } from 'react-router-dom';
-import { AuthContext } from '../../components/Authentification/Auth';
+import { useNavigate } from 'react-router-dom';
 import { BsEyeFill, BsEyeSlashFill } from 'react-icons/bs';
+import { AuthContext } from '../../components/Authentification/Auth';
 
 const Inscription = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [userNew, setUserNew] = useState();
   const [passwordShown, setPasswordShown] = useState(false);
   const navigate = useNavigate();
 
-  const { isAuthenticated, setIsAuthenticated, user, setUser, login, logout } =
+  const { isAuthenticated, setIsAuthenticated, setUser } =
     useContext(AuthContext);
 
   useEffect(() => {
@@ -52,15 +49,10 @@ const Inscription = () => {
         <form className="form" onSubmit={handleSubmit}>
           <h3 className="title">S'inscrire</h3>
           <div className="input-wrap">
-            <input
-              type="text"
-              name="nom"
-              className="input"
-              placeholder="Nom"
-            />
+            <input type="text" name="nom" className="input" placeholder="Nom" />
           </div>
           <div className="input-wrap">
-          <input
+            <input
               type="text"
               name="prenom"
               className="input"
@@ -68,7 +60,7 @@ const Inscription = () => {
             />
           </div>
           <div className="input-wrap">
-          <input
+            <input
               type="text"
               name="pseudo"
               className="input"
@@ -76,7 +68,7 @@ const Inscription = () => {
             />
           </div>
           <div className="input-wrap">
-          <input
+            <input
               type="email"
               name="email"
               className="input"
@@ -108,7 +100,6 @@ const Inscription = () => {
         </form>
       </div>
     </div>
-    
   );
 };
 

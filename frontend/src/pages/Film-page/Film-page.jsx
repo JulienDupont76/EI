@@ -1,6 +1,5 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import Description from '../../components/Film-page/Description';
 import Info from '../../components/Film-page/Info';
 import BandeAnnonce from '../../components/Film-page/Bande-annonce';

@@ -1,12 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
-import { BsEyeFill, BsEyeSlashFill } from 'react-icons/bs';
-import { AuthContext } from '../../components/Authentification/Auth';
+import { useNavigate } from 'react-router-dom';
 
 const AddMovieForm = () => {
-  const navigate = useNavigate();
-
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = {

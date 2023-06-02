@@ -1,7 +1,6 @@
 import { createContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import fetchAPI from '../../utils/fetchAPI';
 
 const AuthContext = createContext();
 
@@ -44,11 +43,7 @@ const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  const login = () => {
-    //fetchAPI(setUser, 'users/connection');
-    //setIsAuthenticated(true);
-    //localStorage.setItem('isAuthenticated', 'true');
-  };
+  const login = () => {};
 
   const logout = () => {
     setIsAuthenticated(false);
