@@ -25,8 +25,6 @@ const Description = ({ idFilm }) => {
 
   const handleClickLike = (newLike) => {
     setRating(newLike);
-    console.log('new like:');
-    console.log(newLike);
     const formValues = {
       idmovie: idFilm,
       iduser: 10,
