@@ -1,20 +1,22 @@
 import { DataSource } from 'typeorm';
-import { User } from './entities/user.js';
-import { Movie } from './entities/movies.js';
-import { Collection } from './entities/collection.js';
-import { Genre } from './entities/genre.js';
-import { UserMovie } from './entities/user_movie.js';
-import { MovieGenre } from './entities/movie_genre.js';
+import { appDataSource } from '../datasource.js';
+import User  from '../entities/user.js';
+import  Movie  from '../entities/movie.js';
+import Collection from '../entities/collection.js';
+import  Genre  from '../entities/genre.js';
+import UserMovie from '../entities/user_movie.js';
+import MovieGenre from '../entities/movie_genre.js';
 
 // Récupération de données importantes pour la suite de la BDD
 async function get_data() {
   const [nb_genres, nb_collections, movie_pop_max] = await Promise.all([
     appDataSource.getRepository(Genre).count(),
     appDataSource.getRepository(Collection).count(),
-    appDataSource.getRepository(Movie).findOne({
+    appDataSource.getRepository(Movie).find({
       order: {
         popularity: 'DESC'
-      }
+      },
+      where:{}
     })
   ]);
   return [nb_genres, nb_collections, movie_pop_max.popularity];
@@ -45,13 +47,13 @@ async function get_genres(movieId) {
 async function get_watched(userId) {
   const user = await appDataSource
     .getRepository(UserMovie)
-    .findOne({
+    .find({
       where: {
         iduser: userId,
         watched: true
       },
     })
-    .then((userMovie) => userMovie.idmovie);
+    .then((userMovie) => {if (userMovie !== null ) userMovie.idmovie });
   return user;
 }
 
@@ -93,7 +95,7 @@ function normalize(vector) {
   vector.forEach((element) => { if (element !== 0){
     cst_normalise += 1;
   }});
-  vector.map((element)=> element/cst_normalise);
+  vector = vector.map((element)=> element/cst_normalise);
   return vector
 }
 
@@ -172,7 +174,11 @@ async function content_ranking(userId, moviesId, number_genres, number_collectio
 
 async function recommend(userId, moviesId) {
   const [number_genres, number_collections,popularity_max] = await get_data();
-  const nb_watched_movies = (await get_watched(userId)).length;
+  const watched = await get_watched(userId);
+  if (watched === undefined) { return 0;}
+  else { const nb_watched_movies = watched.length;
   const recommendedMovies = await content_ranking(userId, moviesId, number_genres, number_collections, popularity_max, nb_watched_movies);
-  return recommendedMovies;
+  return recommendedMovies;}
 }
+
+export default recommend;

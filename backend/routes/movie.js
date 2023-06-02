@@ -2,6 +2,7 @@ import express from 'express';
 import { ILike } from 'typeorm';
 import { appDataSource } from '../datasource.js';
 import CreateMovie from '../utils/CreateMovie.js';
+import recommend from '../utils/recommandation.js';
 import Genre from '../entities/genre.js';
 import Movie from '../entities/movie.js';
 import MovieGenre from '../entities/movie_genre.js';
@@ -49,7 +50,15 @@ router.get('/genres', (req, res) => {
       res.json(genres);
     });
 });
+router.get('/autre', function (req, res) {
+  //const userRepository = appDataSource.getRepository(Movie);
+  console.log('test');
+  const userId = 1;
+  const moviesId = [1,2];
+  res.json({message: "Yo"});
+  console.log(recommend(userId, moviesId));
 
+});
 router.get('/:id', async (req, res) => {
   appDataSource
     .getRepository(Movie)
@@ -121,5 +130,7 @@ router.post('/new', function (req, res) {
   console.log('test');
   CreateMovie(req.body, res);
 });
+
+
 
 export default router;
