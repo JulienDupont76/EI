@@ -7,23 +7,22 @@ import { getUserEtat } from '../../utils/UserEtat';
 const Header = () => {
   const { isAuthenticated, user, login, logout } = useContext(AuthContext);
   const navigate = useNavigate();
-  console.log(getUserEtat('id'));
 
   return (
     <div className="Header-container">
-      <Link className="logo" to="/home">
+      <Link className="logo" to="/">
         <p className="title">Quoi regarder ?</p>
         <p className="subtitle">
           L'assistant personnel de recommandation de film
         </p>
       </Link>
-      {getUserEtat('id') !== 0 ? (
+      {isAuthenticated ? (
         <div>
-          <Link className="connection" to="/home" onClick={logout}>
+          <Link className="connection" to="/" onClick={logout}>
             <p>Se déconnecter</p>
           </Link>
-          <div className="connection" onClick={logout}>
-            <p>Bienvenue {getUserEtat('username')}</p>
+          <div className="connection">
+            <p>Bienvenue {user.username}</p>
           </div>
         </div>
       ) : (

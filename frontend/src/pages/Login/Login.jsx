@@ -1,17 +1,24 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../components/Authentification/Auth';
 import './Login.css';
-import { authDemandeBack } from '../../utils/UserEtat';
+import { BsEyeFill, BsEyeSlashFill } from 'react-icons/bs';
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [passwordShown, setPasswordShown] = useState(false);
   const navigate = useNavigate();
 
-  const { isAuthenticated, setIsAuthenticated, user, login, logout } =
+  const { isAuthenticated, setIsAuthenticated, user, setUser, login, logout } =
     useContext(AuthContext);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/');
+    }
+  }, [isAuthenticated]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -19,45 +26,57 @@ const Login = () => {
       email: e.target.email.value,
       password: e.target.password.value,
     };
-    authDemandeBack(
-      data,
-      'http://localhost:3000/home',
-      'http://localhost:3000/carousel'
-    );
+    axios
+      .post(`${import.meta.env.VITE_BACKEND_URL}users/connection`, data)
+      .then((response) => {
+        if (response.data.answer) {
+          setIsAuthenticated(true);
+          setUser(response.data);
+          localStorage.setItem('session', response.data.session);
+        } else {
+          setIsAuthenticated(false);
+          console.log('try again');
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   return (
     <div className="Auth-container">
       <div className="wrapper">
         <form className="form" onSubmit={handleSubmit}>
-          <img
-            src="../../../public/assets/Logo.png"
-            alt="logo"
-            className="logo"
-          />
           <h3 className="title">Se connecter</h3>
-          <div className="field form-group mt-3">
-            <label>Email address</label>
+          <div className="input-wrap">
             <input
               type="email"
               name="email"
-              className="form-control mt-1"
-              placeholder="Enter email"
+              className="input"
+              placeholder="Email"
             />
           </div>
-          <div className="fiel form-group mt-3">
-            <label>Password</label>
+          <div className="input-wrap">
+            <span
+              className="bouton-password"
+              onClick={() => setPasswordShown(!passwordShown)}
+            >
+              {passwordShown ? <BsEyeSlashFill /> : <BsEyeFill />}
+            </span>
+
             <input
-              type="password"
+              type={passwordShown ? 'text' : 'password'}
               name="password"
-              className="form-control mt-1"
+              className="input"
               placeholder="Enter password"
             />
           </div>
-          <div className="d-grid gap-2 mt-3">
-            <button type="submit" className="btn btn-primary">
-              Submit
-            </button>
+          <div className="bouton-container">
+            <div className="wrap">
+              <button type="submit" className="bouton2">
+                Test
+              </button>
+            </div>
           </div>
           <p className="forgot-password text-right mt-2">
             Forgot <a href="#">password?</a>

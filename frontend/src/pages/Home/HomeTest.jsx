@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import Recommandation from '../../components/HomeTest/Recommendation';
-import ListeFilm from '../../components/HomeTest/ListeFilm';
+import Recommandation from '../../components/Home/Recommendation';
+import ListeFilm from '../../components/Home/ListeFilm';
 import fetchMovies from '../../utils/fetchMovies';
 
-const HomeTest = () => {
+const Home = () => {
   const [movies, setMovies] = useState([]);
 
   useEffect(() => fetchMovies(setMovies, 'movies/all'), []);
@@ -16,4 +16,4 @@ const HomeTest = () => {
   );
 };
 
-export default HomeTest;
+export default Home;

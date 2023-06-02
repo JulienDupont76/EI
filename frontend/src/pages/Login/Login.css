@@ -33,7 +33,109 @@
 
 .Auth-container .title {
   display: block;
-  font-family: Poppins-Bold;
+  font-size: 30px;
+  color: #333;
+  line-height: 1.2;
+  text-align: center;
+  padding-bottom: 26px;
+}
+
+.Auth-container .input-wrap {
+  position: relative;
+  width: 100%;
+  border-bottom: 2px solid #adadad;
+  margin-bottom: 37px;
+}
+
+.Auth-container .input-wrap .input {
+  font-size: 15px;
+  color: #555;
+  line-height: 1.2;
+  display: block;
+  width: 100%;
+  height: 45px;
+  background: 0 0;
+  padding: 0 5px;
+  outline: none;
+  border: none;
+  overflow: visible;
+  margin: 0;
+  touch-action: manipulation;
+}
+
+.Auth-container .input-wrap .bouton-password {
+  font-size: 15px;
+  color: #999;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  height: 100%;
+  top: 0;
+  right: 0;
+  padding-right: 5px;
+  cursor: pointer;
+  transition: all 0.4;
+}
+
+.Auth-container .bouton-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding-top: 13px;
+}
+.Auth-container .bouton-container .wrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 25px;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+.Auth-container .bouton-container .wrap .div-bouton {
+  position: absolute;
+  width: 200%;
+  height: 100%;
+  background: -webkit-linear-gradient(
+    right,
+    #21d4fd,
+    #b721ff,
+    #21d4fd,
+    #b721ff
+  );
+  top: 0;
+  left: -100%;
+  transition: all 0.4s;
+}
+
+.Auth-container .bouton-container .wrap .bouton2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 100px;
+  border: 1px solid red;
+  width: 20px;
+  height: 20px;
+}
+
+.Auth-container .bouton-container .wrap .bouton {
+  font-size: 15px;
+  color: #9a0505;
+  line-height: 1.2;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 20px;
+  width: 100%;
+  height: 50px;
+  outline: none;
+  border: none;
+  overflow: hidden;
+  background: -webkit-linear-gradient(right, #21d4fd, #b721ff, #21d4fd, #b72);
+  border: 1px solid red;
 }
 
 .Auth-container .field {

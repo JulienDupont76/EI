@@ -1,13 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
-import Home from './pages/Home/Home';
-import About from './pages/About/About';
+import Home from './pages/Home/HomeTest';
 import Layout from './components/Layout/Layout';
-import Counter from './pages/Counter/Counter';
-import Users from './pages/Users/Users';
-import Carousel from './pages/Carousel/Carousel';
 import Film from './pages/Film-page/Film-page';
-import HomeTest from './pages/HomeTest/HomeTest';
-import Playground from './pages/Playground/Playground';
 import Login from './pages/Login/Login';
 import Inscription from './pages/Inscription/Inscription';
 import { AuthProvider } from './components/Authentification/Auth';
@@ -18,15 +12,10 @@ function App() {
       <Layout>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="counter" element={<Counter />} />
-          <Route path="users" element={<Users />} />
-          <Route path="about" element={<About />} />
-          <Route path="carousel" element={<Carousel />} />
           <Route path="film/:idFilm" element={<Film />} />
-          <Route path="home" element={<HomeTest />} />
-          <Route path="test" element={<Playground />} />
           <Route path="login" element={<Login />} />
           <Route path="inscription" element={<Inscription />} />
+          <Route path="*" element={<Home />} />
         </Routes>
       </Layout>
     </AuthProvider>

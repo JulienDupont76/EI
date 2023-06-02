@@ -26,7 +26,7 @@ const Film = () => {
           <Similaire idFilm={movie.idTMDB} />
         </>
       ) : (
-        navigate(`/home`)
+        navigate(`/`)
       )}
     </>
   );
