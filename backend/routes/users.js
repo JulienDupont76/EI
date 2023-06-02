@@ -19,17 +19,29 @@ router.post('/new', function (req, res) {
   const userRepository = appDataSource.getRepository(User);
   //req.body.password = hash(req.body.password)
   const newUser = userRepository.create(req.body);
-
   userRepository
     .insert(newUser)
-    .then(function (newDocument) {
-      res.status(201).json(newDocument);
+    .then(function (user) {
+      appDataSource
+        .getRepository(User)
+        .findOneBy({ id: user.identifiers[0].id })
+        .then((userDB) => {
+          console.log(userDB.cookieSession);
+          userDB.cookieSession = crypto.randomBytes(20).toString('hex');
+          appDataSource.getRepository(User).save(userDB);
+          res.json({
+            session: userDB.cookieSession,
+            id: userDB.id,
+            username: userDB.username,
+            answer: true,
+          });
+        });
     })
     .catch(function (error) {
       console.error(error);
       if (error.code === '23505') {
         res.status(400).json({
-          message: `User with email "${newUser.email}" already exists`,
+          message: `User with email "${newUser.mail}" already exists`,
         });
       } else {
         res.status(500).json({ message: 'Error while creating the user' });
@@ -49,39 +61,52 @@ router.delete('/:userId', function (req, res) {
     });
 });
 
-router.post('/connection', (req, res) => {
-  let find;
-  if (req.body.session) {
-    find = { cookieSession: `${req.body.session}` };
-  } else {
-    find = {
-      email: `${req.body.email}`,
-      password: `${req.body.password}`,
-    };
-  }
-
+router.post('/token', (req, res) => {
   appDataSource
     .getRepository(User)
-    .find({
-      where: find,
-    })
-    .then(function (users) {
-      if (users.length === 0) {
-        res.json({ error: true });
+    .findOneBy({ id: req.body.id, cookieSession: req.body.session })
+    .then((user) => {
+      if (user === null) {
+        res.json({ answer: false });
       } else {
-        appDataSource
-          .getRepository(User)
-          .findBy({ id: users.id })
-          .then((userDB) => {
-            userDB[0].cookieSession = crypto.randomBytes(20).toString('hex');
-            appDataSource.getRepository(User).save(userDB);
-            res.json({
-              session: userDB[0].cookieSession,
-              id: userDB[0].id,
-              username: userDB[0].username,
-              error: false,
-            });
-          });
+        res.json({
+          session: user.cookieSession,
+          id: user.id,
+          username: user.username,
+          answer: true,
+        });
+      }
+    })
+    .catch(() => {
+      res.status(500).json({ message: 'Error ' });
+    });
+});
+
+router.post('/token/new', (req, res) => {
+  const token = crypto.randomBytes(20).toString('hex');
+  appDataSource
+    .getRepository(User)
+    .save({ id: req.body.id, cookieSession: token })
+    .then((user) => {
+      res.json(user);
+    });
+});
+
+router.post('/connection', (req, res) => {
+  appDataSource
+    .getRepository(User)
+    .findOneBy({ email: req.body.email, password: req.body.password })
+    .then(function (user) {
+      if (user === null) {
+        res.json({ answer: false });
+      } else {
+        user.answer = true;
+        res.json({
+          session: user.cookieSession,
+          id: user.id,
+          username: user.username,
+          answer: true,
+        });
       }
     })
     .catch(function () {

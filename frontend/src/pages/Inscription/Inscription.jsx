@@ -1,10 +1,22 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../components/Authentification/Auth';
 
 const Inscription = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [user, setUser] = useState();
+  const [userNew, setUserNew] = useState();
+  const navigate = useNavigate();
+
+  const { isAuthenticated, setIsAuthenticated, user, setUser, login, logout } =
+    useContext(AuthContext);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/home');
+    }
+  }, [isAuthenticated]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -17,7 +29,16 @@ const Inscription = () => {
     };
     axios
       .post(`${import.meta.env.VITE_BACKEND_URL}users/new`, data)
-      .then((response) => {})
+      .then((response) => {
+        if (response.data.answer) {
+          setIsAuthenticated(true);
+          setUser(response.data);
+          localStorage.setItem('session', response.data.session);
+        } else {
+          setIsAuthenticated(false);
+          console.log('try again inscription');
+        }
+      })
       .catch((error) => {
         console.error(error);
       });

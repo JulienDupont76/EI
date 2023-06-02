@@ -7,7 +7,6 @@ import { getUserEtat } from '../../utils/UserEtat';
 const Header = () => {
   const { isAuthenticated, user, login, logout } = useContext(AuthContext);
   const navigate = useNavigate();
-  console.log(getUserEtat('id'));
 
   return (
     <div className="Header-container">
@@ -17,13 +16,13 @@ const Header = () => {
           L'assistant personnel de recommandation de film
         </p>
       </Link>
-      {getUserEtat('id') !== 0 ? (
+      {isAuthenticated ? (
         <div>
           <Link className="connection" to="/home" onClick={logout}>
             <p>Se déconnecter</p>
           </Link>
-          <div className="connection" onClick={logout}>
-            <p>Bienvenue {getUserEtat('username')}</p>
+          <div className="connection">
+            <p>Bienvenue {user.username}</p>
           </div>
         </div>
       ) : (
