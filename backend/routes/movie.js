@@ -24,6 +24,24 @@ router.get('/research', (req, res) => {
     });
 });
 
+router.get('/user', (req, res) => {
+  const itemsPerPage = 20;
+  const currentPage = 7;
+  const skipCount = (currentPage - 1) * itemsPerPage;
+  appDataSource
+    .getRepository(Movie)
+    .find({ skip: skipCount, take: itemsPerPage })
+    .then(function (movies) {
+      res.json(movies);
+    })
+    .catch(function (error) {
+      console.error(error);
+      res.status(500).json({
+        error: "Une erreur s'est produite lors de la recherche des films.",
+      });
+    });
+});
+
 router.get('/all', (req, res) => {
   const itemsPerPage = 20;
   const currentPage = parseInt(req.query.page) || 1;
@@ -119,7 +137,6 @@ router.get('/:id', async (req, res) => {
 
 router.post('/new', function (req, res) {
   //const userRepository = appDataSource.getRepository(Movie);
-  console.log('test');
   CreateMovie(req.body, res);
 });
 
