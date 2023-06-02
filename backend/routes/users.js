@@ -15,6 +15,10 @@ router.get('/', function (req, res) {
     });
 });
 
+router.post('/like', (req, res) => {
+  res.json(req.body);
+});
+
 router.post('/new', function (req, res) {
   const userRepository = appDataSource.getRepository(User);
   //req.body.password = hash(req.body.password)
