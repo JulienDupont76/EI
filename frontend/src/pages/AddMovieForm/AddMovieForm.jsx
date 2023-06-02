@@ -1,13 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
-import { useNavigate, Link } from 'react-router-dom';
-import { AuthContext } from '../../components/Authentification/Auth';
+import { Link, useNavigate } from 'react-router-dom';
 import { BsEyeFill, BsEyeSlashFill } from 'react-icons/bs';
+import { AuthContext } from '../../components/Authentification/Auth';
 
 const AddMovieForm = () => {
-
   const navigate = useNavigate();
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -49,7 +47,7 @@ const AddMovieForm = () => {
             />
           </div>
           <div className="input-wrap">
-          <input
+            <input
               type="text"
               name="released-date"
               className="input"
@@ -57,7 +55,7 @@ const AddMovieForm = () => {
             />
           </div>
           <div className="input-wrap">
-          <input
+            <input
               type="text"
               name="released-date"
               className="input"
@@ -65,7 +63,7 @@ const AddMovieForm = () => {
             />
           </div>
           <div className="input-wrap">
-          <input
+            <input
               type="text"
               name="budget"
               className="input"
@@ -73,12 +71,11 @@ const AddMovieForm = () => {
             />
           </div>
           <div className="input-wrap">
-        
             <input
-              type={'text'}
-              name="password"
+              type="text"
+              name="runtime"
               className="input"
-              placeholder="Enter password"
+              placeholder="Durée du film"
             />
           </div>
           <div className="bouton-container">
@@ -91,7 +88,6 @@ const AddMovieForm = () => {
         </form>
       </div>
     </div>
-    
   );
 };
 
