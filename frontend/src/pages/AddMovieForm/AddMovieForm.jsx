@@ -31,10 +31,7 @@ const AddMovieForm = () => {
       .post(`${import.meta.env.VITE_BACKEND_URL}movies/new`, data)
       .then((response) => {
         console.log(response);
-<<<<<<< HEAD
         navigate('/');
-=======
->>>>>>> main
       })
       .catch((error) => {
         console.error(error);

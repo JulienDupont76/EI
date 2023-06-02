@@ -10,11 +10,7 @@ const Header = () => {
     <div className="Header-container">
       <Link className="logo" to="/">
         <img
-<<<<<<< HEAD
-          src="../../../public/assets/Logo.png"
-=======
           src="http://138.195.138.190/assets/Logo.png"
->>>>>>> main
           style={{ height: '100%', width: '300px' }}
         />
       </Link>
