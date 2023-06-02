@@ -1,4 +1,6 @@
-import { BsHeartFill } from 'react-icons/bs';
+// import { BsHeartFill } from 'react-icons/bs';
+import { BsStarFill } from 'react-icons/bs';
+import { BsXCircleFill } from 'react-icons/bs';
 import './Description.css';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -19,19 +21,36 @@ const Description = ({ idFilm }) => {
     genre_tri[genre.id] = genre.name;
   }
 
-  const [isLiked, setIsLiked] = useState(false);
+  const [rating, setRating] = useState(0);
 
-  const handleClickLike = () => {
-    const newLike = !isLiked;
-    setIsLiked(newLike);
-    console.log('isLiked?');
+  const handleClickLike = (newLike) => {
+    setRating(newLike);
+    console.log('new like:');
     console.log(newLike);
     const formValues = {
       idmovie: idFilm,
       iduser: 10,
-      vote: newLike ? 1 : 0,
+      vote: newLike,
     };
     axios.post(`${import.meta.env.VITE_BACKEND_URL}like`, formValues);
+  };
+  const handleClickLike0 = () => {
+    handleClickLike(0);
+  };
+  const handleClickLike1 = () => {
+    handleClickLike(1);
+  };
+  const handleClickLike2 = () => {
+    handleClickLike(2);
+  };
+  const handleClickLike3 = () => {
+    handleClickLike(3);
+  };
+  const handleClickLike4 = () => {
+    handleClickLike(4);
+  };
+  const handleClickLike5 = () => {
+    handleClickLike(5);
   };
 
   return (
@@ -117,11 +136,38 @@ const Description = ({ idFilm }) => {
                 <p style={{ fontSize: '20px' }}>Note des utilisateurs</p>
                 <span>80%</span>
               </div>
+              <button onClick={handleClickLike0} className={'like'}>
+                <BsXCircleFill size={30} />
+              </button>
               <button
-                onClick={handleClickLike}
-                className={isLiked ? 'like' : 'notlike'}
+                onClick={handleClickLike1}
+                className={rating > 0 ? 'like' : 'notlike'}
               >
-                <BsHeartFill />
+                <BsStarFill size={30} />
+              </button>
+              <button
+                onClick={handleClickLike2}
+                className={rating > 1 ? 'like' : 'notlike'}
+              >
+                <BsStarFill size={30} />
+              </button>
+              <button
+                onClick={handleClickLike3}
+                className={rating > 2 ? 'like' : 'notlike'}
+              >
+                <BsStarFill size={30} />
+              </button>
+              <button
+                onClick={handleClickLike4}
+                className={rating > 3 ? 'like' : 'notlike'}
+              >
+                <BsStarFill size={30} />
+              </button>
+              <button
+                onClick={handleClickLike5}
+                className={rating > 4 ? 'like' : 'notlike'}
+              >
+                <BsStarFill size={30} />
               </button>
             </div>
           </section>
