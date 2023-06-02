@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import Lifipe from '../Home/Lifipe';
+import Lifipe from '../Lifipe/Lifipe';
 
 const Similaire = ({ idFilm }) => {
   const [movies, setMovies] = useState([]);

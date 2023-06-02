@@ -10,7 +10,7 @@ const Header = () => {
 
   return (
     <div className="Header-container">
-      <Link className="logo" to="/home">
+      <Link className="logo" to="/">
         <p className="title">Quoi regarder ?</p>
         <p className="subtitle">
           L'assistant personnel de recommandation de film
@@ -18,7 +18,7 @@ const Header = () => {
       </Link>
       {isAuthenticated ? (
         <div>
-          <Link className="connection" to="/home" onClick={logout}>
+          <Link className="connection" to="/" onClick={logout}>
             <p>Se déconnecter</p>
           </Link>
           <div className="connection">
