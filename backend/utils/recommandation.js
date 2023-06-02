@@ -131,21 +131,22 @@ function dotProduct(vector1, vector2) {
   return result;
 }
 
-async function content_similarity(userId, movieId, number_genres, number_collections, popularity_max) {
-  const userVector = await content_user(userId, number_genres, number_collections);
-  const movieVector = await content_movie(movieId, number_genres, number_collections);
+async function content_similarity(userId, movieId, number_genres, number_collections, popularity_max, nb_watched_movies) {
+  const user_vector = await content_user(userId, number_genres, number_collections);
+  const movie_vector = await content_movie(movieId, number_genres, number_collections);
   const popularity_normalized = await get_popularity_normalized(movieId, popularity_max);
   const movie_norm = Math.sqrt(dotProduct(movie_vector,movie_vector));
   const user_norm = Math.sqrt(dotProduct(user_vector,user_vector));
   if ((movie_norm !== 0)&&(user_norm !==0)){
       let cos = dotProduct(movie_vector, user_vector)/(movie_norm*user_norm);
-      let weight_cos = Math.min(nb*cos,50);
-      let weight_pop = Math.max(0,(50-nb));
-      let similarity = (weight_cos*cos - weight_pop*pop)/50;
+      let weight_cos = Math.min(nb_watched_movies*cos,50);
+      let weight_pop = Math.max(0,(50-nb_watched_movies));
+      let similarity = (weight_cos*cos - weight_pop*popularity_normalized)/50;
+      return similarity
   } else {
     let similarity = 0;
+    return similarity
   };
-  return similarity
 }
 
 function comparer(a, b) {
@@ -158,10 +159,10 @@ function comparer(a, b) {
   return 0;
 }
 
-async function content_ranking(userId, moviesId, number_genres, number_collections, popularity_max) {
+async function content_ranking(userId, moviesId, number_genres, number_collections, popularity_max, nb_watched_movies) {
   const rank = [];
   for (const movieId of moviesId) {
-    const similarity = await content_similarity(userId, movieId, number_genres, number_collections, popularity_max);
+    const similarity = await content_similarity(userId, movieId, number_genres, number_collections, popularity_max, nb_watched_movies);
     rank.push([similarity, movieId]);
   }
   rank.sort(comparer);
@@ -171,6 +172,7 @@ async function content_ranking(userId, moviesId, number_genres, number_collectio
 
 async function recommend(userId, moviesId) {
   const [number_genres, number_collections,popularity_max] = await get_data();
-  const recommendedMovies = await content_ranking(userId, moviesId, number_genres, number_collections);
+  const nb_watched_movies = (await get_watched(userId)).length;
+  const recommendedMovies = await content_ranking(userId, moviesId, number_genres, number_collections, popularity_max, nb_watched_movies);
   return recommendedMovies;
 }
