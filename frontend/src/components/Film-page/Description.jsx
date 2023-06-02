@@ -7,8 +7,16 @@ import convertMinutesToHoursMinutes from '../../utils/TimeMinutesToHoursMinutes'
 
 const Description = ({ idFilm }) => {
   const [movieData, setMovieData] = useState({});
+  const [genreData, setGenreData] = useState([]);
 
   useEffect(() => fetchMovies(setMovieData, `movies/${idFilm}`), []);
+  useEffect(() => fetchMovies(setGenreData, `movies/genres`), []);
+
+  const genre_tri = [];
+
+  for (const genre of genreData) {
+    genre_tri[genre.id] = genre.name;
+  }
 
   return (
     <div
@@ -42,7 +50,15 @@ const Description = ({ idFilm }) => {
                   {movieData.genres.map((element) => element.name).join(', ')}
                 </p>
               )*/}
-              <p style={{ fontSize: '20px' }}>A venir</p>
+              {movieData.genres &&
+                movieData.genres.map((genre) => {
+                  return (
+                    <p style={{ fontSize: '20px' }}>
+                      {genre_tri[genre.idgenre]}
+                    </p>
+                  );
+                })}
+
               {movieData.runtime !== 0 && (
                 <p style={{ fontSize: '20px' }}>
                   {convertMinutesToHoursMinutes(movieData.runtime)}

@@ -13,14 +13,6 @@ const Genre = new typeorm.EntitySchema({
       unique: true,
     },
   },
-  relations: {
-    movies: {
-      type: 'many-to-many',
-      target: 'Movie',
-      joinTable: true,
-      cascade: true,
-    },
-  },
 });
 
 export default Genre;

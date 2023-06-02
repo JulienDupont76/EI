@@ -16,6 +16,7 @@ const User = new typeorm.EntitySchema({
     lastname: { type: String },
     username: { type: String },
     password: { type: String },
+    cookieSession: { type: String, nullable: true },
   },
 });
 

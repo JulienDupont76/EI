@@ -1,4 +1,6 @@
 import express from 'express';
+import crypto from 'crypto';
+import { Repository } from 'typeorm';
 import { appDataSource } from '../datasource.js';
 import User from '../entities/user.js';
 
@@ -15,11 +17,8 @@ router.get('/', function (req, res) {
 
 router.post('/new', function (req, res) {
   const userRepository = appDataSource.getRepository(User);
-  const newUser = userRepository.create({
-    email: req.body.email,
-    firstname: req.body.firstname,
-    lastname: req.body.lastname,
-  });
+  //req.body.password = hash(req.body.password)
+  const newUser = userRepository.create(req.body);
 
   userRepository
     .insert(newUser)
@@ -50,12 +49,43 @@ router.delete('/:userId', function (req, res) {
     });
 });
 
-router.get('/connection', (req, res) => {
+router.post('/connection', (req, res) => {
+  let find;
+  if (req.body.session) {
+    find = { cookieSession: `${req.body.session}` };
+  } else {
+    find = {
+      email: `${req.body.email}`,
+      password: `${req.body.password}`,
+    };
+  }
+
   appDataSource
     .getRepository(User)
-    .find({ where: { firstname: 'Julien' } })
+    .find({
+      where: find,
+    })
     .then(function (users) {
-      res.json(users[0]);
+      if (users.length === 0) {
+        res.json({ error: true });
+      } else {
+        appDataSource
+          .getRepository(User)
+          .findBy({ id: users.id })
+          .then((userDB) => {
+            userDB[0].cookieSession = crypto.randomBytes(20).toString('hex');
+            appDataSource.getRepository(User).save(userDB);
+            res.json({
+              session: userDB[0].cookieSession,
+              id: userDB[0].id,
+              username: userDB[0].username,
+              error: false,
+            });
+          });
+      }
+    })
+    .catch(function () {
+      res.status(500).json({ message: 'Error ' });
     });
 });
 

@@ -1,5 +1,7 @@
 import { appDataSource } from '../datasource.js';
 import Movie from '../entities/movie.js';
+import Genre from '../entities/genre.js';
+import MovieGenre from '../entities/movie_genre.js';
 
 const CreateMovie = (movie, res) => {
   const userRepository = appDataSource.getRepository(Movie);
@@ -8,9 +10,9 @@ const CreateMovie = (movie, res) => {
     overview: movie.overview,
     adult: movie.adult,
     backdrop_path: movie.backdrop_path,
-    belongs_to_collection: movie.belongs_to_collection,
+    collectionid: movie.collectionid,
     budget: movie.budget,
-    genres: movie.genres,
+    // genres: movie.genres,
     idTMDB: movie.idTMDB,
     original_language: movie.original_language,
     original_title: movie.original_title,
@@ -27,9 +29,31 @@ const CreateMovie = (movie, res) => {
 
   userRepository
     .insert(newMovie)
-    .then(function (newDocument) {
+    .then(async (newMovie) => {
+      if (movie.genres !== []) {
+        for (const genre of movie.genres) {
+          const genreRepository = appDataSource.getRepository(Genre);
+          const query = await genreRepository.findOneBy({
+            name: genre.name,
+          });
+
+          if (query === null) {
+            await genreRepository.save({
+              name: genre.name,
+            });
+          }
+          const query2 = await genreRepository.findOneBy({
+            name: genre.name,
+          });
+          const MovieGenreRepository = appDataSource.getRepository(MovieGenre);
+          await MovieGenreRepository.save({
+            idmovie: newMovie.identifiers[0].id,
+            idgenre: query2.id,
+          });
+        }
+      }
       if (res !== null) {
-        res.status(201).json(newDocument);
+        res.status(201).json(newMovie);
       }
     })
     .catch(function (error) {

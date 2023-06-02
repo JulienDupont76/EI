@@ -1,19 +1,35 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../components/Authentification/Auth';
 import './Login.css';
+import { authDemandeBack } from '../../utils/UserEtat';
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [user, setUser] = useState();
+  const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {};
+  const { isAuthenticated, setIsAuthenticated, user, login, logout } =
+    useContext(AuthContext);
 
-  // if there's no user, show the login form
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const data = {
+      email: e.target.email.value,
+      password: e.target.password.value,
+    };
+    authDemandeBack(
+      data,
+      'http://localhost:3000/home',
+      'http://localhost:3000/carousel'
+    );
+  };
+
   return (
     <div className="Auth-container">
       <div className="wrapper">
-        <form className="form">
+        <form className="form" onSubmit={handleSubmit}>
           <img
             src="../../../public/assets/Logo.png"
             alt="logo"
@@ -24,6 +40,7 @@ const Login = () => {
             <label>Email address</label>
             <input
               type="email"
+              name="email"
               className="form-control mt-1"
               placeholder="Enter email"
             />
@@ -32,6 +49,7 @@ const Login = () => {
             <label>Password</label>
             <input
               type="password"
+              name="password"
               className="form-control mt-1"
               placeholder="Enter password"
             />

@@ -9,6 +9,7 @@ import Film from './pages/Film-page/Film-page';
 import HomeTest from './pages/HomeTest/HomeTest';
 import Playground from './pages/Playground/Playground';
 import Login from './pages/Login/Login';
+import Inscription from './pages/Inscription/Inscription';
 import { AuthProvider } from './components/Authentification/Auth';
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
           <Route path="home" element={<HomeTest />} />
           <Route path="test" element={<Playground />} />
           <Route path="login" element={<Login />} />
+          <Route path="inscription" element={<Inscription />} />
         </Routes>
       </Layout>
     </AuthProvider>
