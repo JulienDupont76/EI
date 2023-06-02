@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { AuthContext } from '../../components/Authentification/Auth';
 import './Login.css';
 import { BsEyeFill, BsEyeSlashFill } from 'react-icons/bs';
@@ -74,13 +74,15 @@ const Login = () => {
           <div className="bouton-container">
             <div className="wrap">
               <button type="submit" className="bouton2">
-                Test
+                Login
               </button>
             </div>
           </div>
-          <p className="forgot-password text-right mt-2">
-            Forgot <a href="#">password?</a>
+          <Link className='inscription' to='/inscription'>
+          <p>
+            S'inscrire
           </p>
+          </Link>
         </form>
       </div>
     </div>

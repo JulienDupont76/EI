@@ -11,19 +11,16 @@ const Header = () => {
   return (
     <div className="Header-container">
       <Link className="logo" to="/">
-        <p className="title">Quoi regarder ?</p>
-        <p className="subtitle">
-          L'assistant personnel de recommandation de film
-        </p>
+        <img src='../../../public/assets/Logo.png' style={{height:"100%", width:"300px"}}/>
       </Link>
       {isAuthenticated ? (
-        <div>
-          <Link className="connection" to="/" onClick={logout}>
-            <p>Se déconnecter</p>
-          </Link>
+        <div style={{display:'flex',justifyContent:'flex-end', alignItems:'center'}}>
           <div className="connection">
             <p>Bienvenue {user.username}</p>
           </div>
+          <Link className="connection" to="/" onClick={logout}>
+            <p>Se déconnecter</p>
+          </Link>
         </div>
       ) : (
         <Link className="connection" to="/login">

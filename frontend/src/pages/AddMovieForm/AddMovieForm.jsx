@@ -4,21 +4,10 @@ import { useNavigate, Link } from 'react-router-dom';
 import { AuthContext } from '../../components/Authentification/Auth';
 import { BsEyeFill, BsEyeSlashFill } from 'react-icons/bs';
 
-const Inscription = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [userNew, setUserNew] = useState();
-  const [passwordShown, setPasswordShown] = useState(false);
+const AddMovieForm = () => {
+
   const navigate = useNavigate();
 
-  const { isAuthenticated, setIsAuthenticated, user, setUser, login, logout } =
-    useContext(AuthContext);
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      navigate('/home');
-    }
-  }, [isAuthenticated]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -50,19 +39,19 @@ const Inscription = () => {
     <div className="Auth-container">
       <div className="wrapper">
         <form className="form" onSubmit={handleSubmit}>
-          <h3 className="title">S'inscrire</h3>
+          <h3 className="title">Ajouter un film</h3>
           <div className="input-wrap">
             <input
               type="text"
-              name="nom"
+              name="title"
               className="input"
-              placeholder="Nom"
+              placeholder="Titre"
             />
           </div>
           <div className="input-wrap">
           <input
               type="text"
-              name="prenom"
+              name="released-date"
               className="input"
               placeholder="Prénom"
             />
@@ -70,29 +59,23 @@ const Inscription = () => {
           <div className="input-wrap">
           <input
               type="text"
-              name="pseudo"
+              name="released-date"
               className="input"
-              placeholder="Pseudo"
+              placeholder="Date de sortie"
             />
           </div>
           <div className="input-wrap">
           <input
-              type="email"
-              name="email"
+              type="text"
+              name="budget"
               className="input"
-              placeholder="Enter email"
+              placeholder="Budget du film"
             />
           </div>
           <div className="input-wrap">
-            <span
-              className="bouton-password"
-              onClick={() => setPasswordShown(!passwordShown)}
-            >
-              {passwordShown ? <BsEyeSlashFill /> : <BsEyeFill />}
-            </span>
-
+        
             <input
-              type={passwordShown ? 'text' : 'password'}
+              type={'text'}
               name="password"
               className="input"
               placeholder="Enter password"
@@ -112,4 +95,4 @@ const Inscription = () => {
   );
 };
 
-export default Inscription;
+export default AddMovieForm;
