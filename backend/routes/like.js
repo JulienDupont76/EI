@@ -5,26 +5,51 @@ const router = express.Router();
 import { appDataSource } from '../datasource.js';
 import UserMovie from '../entities/user_movie.js';
 
-router.post('/', function (req, res) {
+router.post('/', async function (req, res) {
   const userMovieRep = appDataSource.getRepository(UserMovie);
   //req.body.password = hash(req.body.password)
-  const newLike = userMovieRep.create(req.body);
 
-  userMovieRep
-    .insert(newLike)
-    .then(function (newDocument) {
-      res.status(201).json(newDocument);
-    })
-    .catch(function (error) {
-      console.error(error);
-      if (error.code === '23505') {
-        res.status(400).json({
-          message: '',
-        });
-      } else {
-        res.status(500).json({ message: 'Error while liking' });
-      }
-    });
+  const query = await userMovieRep.findOneBy({
+    idmovie: req.body.idmovie,
+    iduser: req.body.iduser,
+  });
+
+  if (query == null) {
+    const newLike = userMovieRep.create(req.body);
+    userMovieRep
+      .insert(newLike)
+      .then(function (newDocument) {
+        res.status(201).json(newDocument);
+      })
+      .catch(function (error) {
+        console.error(error);
+        if (error.code === '23505') {
+          res.status(400).json({
+            message: '',
+          });
+        } else {
+          res.status(500).json({ message: 'Error while liking' });
+        }
+      });
+  } else {
+    query.vote = req.body.vote;
+
+    await userMovieRep
+      .save(query)
+      .then(function (newDocument) {
+        res.status(200).json(newDocument);
+      })
+      .catch(function (error) {
+        console.error(error);
+        if (error.code === '23505') {
+          res.status(400).json({
+            message: '',
+          });
+        } else {
+          res.status(500).json({ message: 'Error while liking' });
+        }
+      });
+  }
 });
 
 export default router;

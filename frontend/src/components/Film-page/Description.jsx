@@ -22,13 +22,16 @@ const Description = ({ idFilm }) => {
   const [isLiked, setIsLiked] = useState(false);
 
   const handleClickLike = () => {
-    setIsLiked(!isLiked);
+    const newLike = !isLiked;
+    setIsLiked(newLike);
+    console.log('isLiked?');
+    console.log(newLike);
     const formValues = {
       idmovie: idFilm,
-      iduser: 0,
-      vote: isLiked ? 1 : 0,
+      iduser: 10,
+      vote: newLike ? 1 : 0,
     };
-    axios.post(`${import.meta.env.VITE_BACKEND_URL}/like/`, formValues);
+    axios.post(`${import.meta.env.VITE_BACKEND_URL}like`, formValues);
   };
 
   return (
