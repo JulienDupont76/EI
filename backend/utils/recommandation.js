@@ -47,30 +47,28 @@ async function get_watched(userId) {
 
 async function get_nb_watched_genres(watched, number_genres) {
   const v = Array(number_genres).fill(0);
-  await Promise.all(
-    watched.map(async (movie) => {
-      const idgenres = await get_genres(movie.id);
-      idgenres.forEach((idgenre) => {
-        v[idgenre - 1]++;
-      });
-    })
-  );
+  watched.forEach(async (movie) => {
+    const idgenres = await get_genres(movie.id);
+    if (movie.id === 4) {
+      console.log(idgenres);
+    }
+    //console.log(idgenres);
+    idgenres.forEach((idgenre) => {
+      v[idgenre - 67]++;
+    });
+  });
 
   return v;
 }
-
 async function get_nb_watched_collections(watched, number_collections) {
   const v = Array(number_collections).fill(0);
-  await Promise.all(
-    watched.map(async (movie) => {
-      const id_collection = await get_collection(movie.id);
-      v[id_collection - 1]++;
-    })
-  );
+  watched.forEach(async (movie) => {
+    const id_collection = await get_collection(movie.id);
+    v[id_collection - 241]++;
+  });
 
   return v;
 }
-
 async function get_popularity_normalized(movieId) {
   const response = await axios.get(
     `http://localhost:8000/recommandation/popularity/${movieId}`
@@ -101,7 +99,6 @@ async function content_user(userId, number_genres, number_collections) {
   );
   const normalized_genres = normalize(nb_watched_genres);
   const normalized_collections = normalize(nb_watched_collections);
-  const vector = Array(number_genres + number_collections).fill(0);
   const userVector = normalized_genres.concat(normalized_collections);
 
   return userVector;
@@ -153,14 +150,12 @@ async function content_similarity(
   const movie_norm = Math.sqrt(dotProduct(movie_vector, movie_vector));
   const user_norm = Math.sqrt(dotProduct(user_vector, user_vector));
   if (movie_norm !== 0 && user_norm !== 0) {
-    const cos = parseFloat(
-      dotProduct(movie_vector, user_vector) / (movie_norm * user_norm)
-    );
+    const cos =
+      dotProduct(movie_vector, user_vector) / (movie_norm * user_norm);
     const weight_cos = Math.min(nb_watched_movies * cos, 50);
     const weight_pop = Math.max(0, 50 - nb_watched_movies);
     const similarity =
       (weight_cos * cos + weight_pop * popularity_normalized) / 50;
-    console.log('weight_cos' + weight_cos);
 
     return similarity;
   } else {
@@ -222,8 +217,9 @@ async function recommend(userId, moviesId) {
       popularity_max,
       nb_watched_movies
     );
+    const nb = await get_genres(4);
 
-    return recommendedMovies;
+    return recommendedMovies.sort(() => Math.random() - 0.5);;
   }
 }
 
