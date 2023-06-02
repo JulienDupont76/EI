@@ -50,15 +50,7 @@ router.get('/genres', (req, res) => {
       res.json(genres);
     });
 });
-router.get('/autre', function (req, res) {
-  //const userRepository = appDataSource.getRepository(Movie);
-  console.log('test');
-  const userId = 1;
-  const moviesId = [1,2];
-  res.json({message: "Yo"});
-  console.log(recommend(userId, moviesId));
 
-});
 router.get('/:id', async (req, res) => {
   appDataSource
     .getRepository(Movie)
@@ -130,7 +122,5 @@ router.post('/new', function (req, res) {
   console.log('test');
   CreateMovie(req.body, res);
 });
-
-
 
 export default router;

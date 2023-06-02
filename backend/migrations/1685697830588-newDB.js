@@ -1,12 +1,13 @@
 import typeorm from "typeorm";
+
 const { MigrationInterface, QueryRunner } = typeorm;
 
-export default class  $npmConfigName1685691737114 {
-    name = ' $npmConfigName1685691737114'
+export default class newDB1685697830588 {
+    name = 'newDB1685697830588'
 
     async up(queryRunner) {
         await queryRunner.query(`
-            CREATE TABLE "user_genre" (
+            CREATE TABLE "user_movie" (
                 "id" integer PRIMARY KEY AUTOINCREMENT NOT NULL,
                 "iduser" integer NOT NULL,
                 "idmovie" integer NOT NULL,
@@ -19,7 +20,7 @@ export default class  $npmConfigName1685691737114 {
 
     async down(queryRunner) {
         await queryRunner.query(`
-            DROP TABLE "user_genre"
+            DROP TABLE "user_movie"
         `);
     }
 }
