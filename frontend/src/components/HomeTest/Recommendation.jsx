@@ -27,7 +27,7 @@ const Recommandation = ({ movies }) => {
     >
       <h1 style={{ padding: '20px', margin: '0' }}>
         Recommandations{' '}
-        {isAuthenticated
+        {isAuthenticated !== null
           ? `pour ${user.username}`
           : '(se connecter pour personnaliser)'}
       </h1>

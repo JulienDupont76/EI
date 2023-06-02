@@ -4,6 +4,7 @@ import { appDataSource } from '../datasource.js';
 import CreateMovie from '../utils/CreateMovie.js';
 import Genre from '../entities/genre.js';
 import Movie from '../entities/movie.js';
+import MovieGenre from '../entities/movie_genre.js';
 
 const router = express.Router();
 
@@ -40,6 +41,15 @@ router.get('/all', (req, res) => {
     });
 });
 
+router.get('/genres', (req, res) => {
+  appDataSource
+    .getRepository(Genre)
+    .find({})
+    .then(function (genres) {
+      res.json(genres);
+    });
+});
+
 router.get('/:id', async (req, res) => {
   appDataSource
     .getRepository(Movie)
@@ -48,7 +58,13 @@ router.get('/:id', async (req, res) => {
       if (films === null) {
         res.json({ erreur: "Le film recherché n'existe pas" });
       } else {
-        res.json(films);
+        appDataSource
+          .getRepository(MovieGenre)
+          .findBy({ idmovie: films.id })
+          .then((genres) => {
+            films.genres = genres;
+            res.json(films);
+          });
       }
     });
 });

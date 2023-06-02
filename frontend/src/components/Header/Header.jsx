@@ -1,10 +1,13 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../Authentification/Auth';
 import './Header.css';
+import { getUserEtat } from '../../utils/UserEtat';
 
 const Header = () => {
   const { isAuthenticated, user, login, logout } = useContext(AuthContext);
+  const navigate = useNavigate();
+  console.log(getUserEtat('id'));
 
   return (
     <div className="Header-container">
@@ -14,9 +17,20 @@ const Header = () => {
           L'assistant personnel de recommandation de film
         </p>
       </Link>
-      <div className="connection" onClick={isAuthenticated ? logout : login}>
-        <p>{isAuthenticated ? `Bienvenue ${user.username}` : 'Se connecter'}</p>
-      </div>
+      {getUserEtat('id') !== 0 ? (
+        <div>
+          <Link className="connection" to="/home" onClick={logout}>
+            <p>Se déconnecter</p>
+          </Link>
+          <div className="connection" onClick={logout}>
+            <p>Bienvenue {getUserEtat('username')}</p>
+          </div>
+        </div>
+      ) : (
+        <Link className="connection" to="/login">
+          <p>Se connecter</p>
+        </Link>
+      )}
     </div>
   );
 };
