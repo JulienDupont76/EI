@@ -5,9 +5,9 @@ import './Recommandation.css';
 import { AuthContext } from '../Authentification/Auth';
 
 const Recommandation = ({ movies }) => {
-  const { isAuthenticated, user, login, logout } = useContext(AuthContext);
+  const { isAuthenticated, user } = useContext(AuthContext);
   const [isHovered, setIsHovered] = useState(false);
-  const test = useRef(null);
+  const ref = useRef(null);
   const navigate = useNavigate();
 
   const handleMouseOver = () => {
@@ -32,11 +32,7 @@ const Recommandation = ({ movies }) => {
           : '(se connecter pour personnaliser)'}
       </h1>
       {movies.length && (
-        <Rerousel
-          itemRef={test}
-          interval={3000}
-          stop={isHovered ? true : false}
-        >
+        <Rerousel itemRef={ref} interval={3000} stop={isHovered ? true : false}>
           {movies.map((m) => {
             return (
               <div
@@ -58,7 +54,7 @@ const Recommandation = ({ movies }) => {
                   navigate(`/film/${m.id}`);
                   navigate(0);
                 }}
-                ref={test}
+                ref={ref}
               ></div>
             );
           })}

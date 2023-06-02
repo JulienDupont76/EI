@@ -1,4 +1,4 @@
-import './Lifipe.css';
+import './Cartouche.css';
 import { BsFillArrowRightCircleFill } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
 

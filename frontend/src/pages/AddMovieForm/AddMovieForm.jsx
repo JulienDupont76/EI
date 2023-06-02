@@ -2,26 +2,36 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const AddMovieForm = () => {
+  const navigate = useNavigate();
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = {
-      lastname: e.target.nom.value,
-      firstname: e.target.prenom.value,
-      username: e.target.pseudo.value,
-      email: e.target.email.value,
-      password: e.target.password.value,
+      adult: false,
+      backdrop_path: null,
+      collectionid: null,
+      budget: e.target.budget.value,
+      idTMDB: 8457,
+      original_language: 'en',
+      original_title: e.target.title.value,
+      overview: e.target.overview.value,
+      popularity: 0,
+      poster_path: null,
+      release_date: e.target.date.value,
+      revenue: 0,
+      runtime: e.target.runtime.value,
+      status: 'Released',
+      tagline: '',
+      title: e.target.title.value,
+      video: '',
+      vote_average: 0,
+      genres: [],
     };
     axios
-      .post(`${import.meta.env.VITE_BACKEND_URL}users/new`, data)
+      .post(`${import.meta.env.VITE_BACKEND_URL}movies/new`, data)
       .then((response) => {
-        if (response.data.answer) {
-          setIsAuthenticated(true);
-          setUser(response.data);
-          localStorage.setItem('session', response.data.session);
-        } else {
-          setIsAuthenticated(false);
-          console.log('try again inscription');
-        }
+        console.log(response);
+        navigate('/');
       })
       .catch((error) => {
         console.error(error);
@@ -44,17 +54,17 @@ const AddMovieForm = () => {
           <div className="input-wrap">
             <input
               type="text"
-              name="released-date"
+              name="date"
               className="input"
-              placeholder="Prénom"
+              placeholder="Date de sortie"
             />
           </div>
           <div className="input-wrap">
             <input
               type="text"
-              name="released-date"
+              name="overview"
               className="input"
-              placeholder="Date de sortie"
+              placeholder="Description"
             />
           </div>
           <div className="input-wrap">
@@ -76,7 +86,7 @@ const AddMovieForm = () => {
           <div className="bouton-container">
             <div className="wrap">
               <button type="submit" className="bouton2">
-                Login
+                Créer
               </button>
             </div>
           </div>

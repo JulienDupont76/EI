@@ -6,9 +6,7 @@ const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [redirect, setRedirect] = useState(false);
   const [user, setUser] = useState({});
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (localStorage.getItem('session') !== null) {
@@ -28,22 +26,9 @@ const AuthProvider = ({ children }) => {
           console.error(error);
         });
     } else {
-      console.log('test');
-      setRedirect(true);
-      const data = { id: 1 };
-      //axios
-      //  .post(`${import.meta.env.VITE_BACKEND_URL}users/token/new`, data)
-      //  .then((response) => {
-      //    setIsAuthenticated(true);
-      //    localStorage.setItem('session', response.data.cookieSession);
-      //  })
-      //  .catch((error) => {
-      //    console.error(error);
-      //  });
+      setIsAuthenticated(false);
     }
   }, []);
-
-  const login = () => {};
 
   const logout = () => {
     setIsAuthenticated(false);
@@ -58,7 +43,6 @@ const AuthProvider = ({ children }) => {
         setIsAuthenticated,
         user,
         setUser,
-        login,
         logout,
       }}
     >
