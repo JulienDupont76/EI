@@ -1,2 +1,18 @@
 #!/bin/bash
-ls -al
+sudo systemctl stop myapp.service
+cd /var/www
+sudo rm -rf html
+sudo rm -rf EI
+sudo git clone https://github.com/JulienDupont76/EI.git
+sudo cp -r /var/www/EI/frontend/build /var/www/html
+cd /var/www/EI/backend
+sudo npm install
+sudo touch database.sqlite3
+sudo chmod 777 database.sqlite3
+sudo chmod 777 ../backend
+sudo rm -rf migrations/
+sudo mkdir migrations
+sudo cp .env.example .env
+sudo npm run migration:generate --name=createDB
+sudo npm run migration:run
+sudo systemctl start myapp.service

@@ -1,8 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
-import { BsEyeFill, BsEyeSlashFill } from 'react-icons/bs';
-import { AuthContext } from '../../components/Authentification/Auth';
+import { useNavigate } from 'react-router-dom';
 
 const AddMovieForm = () => {
   const navigate = useNavigate();
@@ -34,6 +31,7 @@ const AddMovieForm = () => {
       .post(`${import.meta.env.VITE_BACKEND_URL}movies/new`, data)
       .then((response) => {
         console.log(response);
+        navigate('/');
       })
       .catch((error) => {
         console.error(error);

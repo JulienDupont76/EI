@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import Lifipe from '../Lifipe/Lifipe';
+import Lifipe from '../Cartouche/Cartouche';
 import fetchResearch from '../../utils/fetchResearch';
 import './ListeFilm.css';
 

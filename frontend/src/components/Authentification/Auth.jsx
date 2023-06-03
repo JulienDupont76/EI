@@ -1,15 +1,12 @@
 import { createContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import fetchAPI from '../../utils/fetchAPI';
 
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [redirect, setRedirect] = useState(false);
   const [user, setUser] = useState({});
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (localStorage.getItem('session') !== null) {
@@ -29,26 +26,9 @@ const AuthProvider = ({ children }) => {
           console.error(error);
         });
     } else {
-      console.log('test');
-      setRedirect(true);
-      const data = { id: 1 };
-      //axios
-      //  .post(`${import.meta.env.VITE_BACKEND_URL}users/token/new`, data)
-      //  .then((response) => {
-      //    setIsAuthenticated(true);
-      //    localStorage.setItem('session', response.data.cookieSession);
-      //  })
-      //  .catch((error) => {
-      //    console.error(error);
-      //  });
+      setIsAuthenticated(false);
     }
   }, []);
-
-  const login = () => {
-    //fetchAPI(setUser, 'users/connection');
-    //setIsAuthenticated(true);
-    //localStorage.setItem('isAuthenticated', 'true');
-  };
 
   const logout = () => {
     setIsAuthenticated(false);
@@ -63,7 +43,6 @@ const AuthProvider = ({ children }) => {
         setIsAuthenticated,
         user,
         setUser,
-        login,
         logout,
       }}
     >
