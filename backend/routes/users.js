@@ -1,6 +1,5 @@
 import express from 'express';
 import crypto from 'crypto';
-import { Repository } from 'typeorm';
 import { appDataSource } from '../datasource.js';
 import User from '../entities/user.js';
 
@@ -12,6 +11,9 @@ router.get('/', function (req, res) {
     .find({})
     .then(function (users) {
       res.json({ users: users });
+    })
+    .catch(function () {
+      res.status(500).json({ message: 'Error while deleting the user' });
     });
 });
 
@@ -22,24 +24,17 @@ router.post('/like', (req, res) => {
 router.post('/new', function (req, res) {
   const userRepository = appDataSource.getRepository(User);
   //req.body.password = hash(req.body.password)
+  req.body.cookieSession = crypto.randomBytes(20).toString('hex');
   const newUser = userRepository.create(req.body);
   userRepository
     .insert(newUser)
     .then(function (user) {
-      appDataSource
-        .getRepository(User)
-        .findOneBy({ id: user.identifiers[0].id })
-        .then((userDB) => {
-          console.log(userDB.cookieSession);
-          userDB.cookieSession = crypto.randomBytes(20).toString('hex');
-          appDataSource.getRepository(User).save(userDB);
-          res.json({
-            session: userDB.cookieSession,
-            id: userDB.id,
-            username: userDB.username,
-            answer: true,
-          });
-        });
+      res.json({
+        session: newUser.cookieSession,
+        id: user.identifiers[0].id,
+        username: newUser.username,
+        answer: true,
+      });
     })
     .catch(function (error) {
       console.error(error);
@@ -83,16 +78,6 @@ router.post('/token', (req, res) => {
     })
     .catch(() => {
       res.status(500).json({ message: 'Error ' });
-    });
-});
-
-router.post('/token/new', (req, res) => {
-  const token = crypto.randomBytes(20).toString('hex');
-  appDataSource
-    .getRepository(User)
-    .save({ id: req.body.id, cookieSession: token })
-    .then((user) => {
-      res.json(user);
     });
 });
 

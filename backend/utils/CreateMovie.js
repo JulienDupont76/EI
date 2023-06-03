@@ -3,7 +3,7 @@ import Movie from '../entities/movie.js';
 import Genre from '../entities/genre.js';
 import MovieGenre from '../entities/movie_genre.js';
 
-const CreateMovie = (movie, res) => {
+const CreateMovie = async (movie, res) => {
   const userRepository = appDataSource.getRepository(Movie);
   const newMovie = userRepository.create({
     title: movie.title,
@@ -26,6 +26,31 @@ const CreateMovie = (movie, res) => {
     video: movie.video,
     vote_average: movie.vote_average,
   });
+
+  //const newMovieresponse = await userRepository.insert(newMovie);
+  //
+  //if (movie.genres !== []) {
+  //  const genreRepository = appDataSource.getRepository(Genre);
+  //  const MovieGenreRepository = appDataSource.getRepository(MovieGenre);
+  //  for (const genre of movie.genres) {
+  //    const query = await genreRepository.findOneBy({
+  //      name: genre.name,
+  //    });
+  //    if (query === null) {
+  //      await genreRepository.save({
+  //        name: genre.name,
+  //      });
+  //    }
+  //    const query2 = await genreRepository.findOneBy({
+  //      name: genre.name,
+  //    });
+  //
+  //    await MovieGenreRepository.save({
+  //      idmovie: newMovieresponse.identifiers[0].id,
+  //      idgenre: query2.id,
+  //    });
+  //  }
+  //}
 
   userRepository
     .insert(newMovie)

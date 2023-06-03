@@ -1,12 +1,4 @@
-import { DataSource } from 'typeorm';
 import axios from 'axios';
-import { appDataSource } from '../datasource.js';
-import User from '../entities/user.js';
-import Movie from '../entities/movie.js';
-import Collection from '../entities/collection.js';
-import Genre from '../entities/genre.js';
-import UserMovie from '../entities/user_movie.js';
-import MovieGenre from '../entities/movie_genre.js';
 
 // Récupération de données importantes pour la suite de la BDD
 async function get_data() {
@@ -219,7 +211,7 @@ async function recommend(userId, moviesId) {
     );
     const nb = await get_genres(4);
 
-    return recommendedMovies.sort(() => Math.random() - 0.5);;
+    return recommendedMovies.sort(() => Math.random() - 0.5);
   }
 }
 
