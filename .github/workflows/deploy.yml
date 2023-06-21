@@ -19,12 +19,10 @@ jobs:
       - name: Build project
         run: npm run build -prefix /home/runner/work/EI/EI/frontend
 
-      - name: Deploy to Apache2
+      - name: SSH Deploy
         uses: easingthemes/ssh-deploy@v2.1.5
         with:
-          REMOTE_HOST: 138.195.138.190
-          REMOTE_USER: ubuntu
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_PRIVATE_KEY }}
-          SOURCE_PATH: "build/"
-          TARGET_PATH: "/var/www/html/"
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: build/
+          server: ubuntu@138.195.138.190
+          target: /var/www/
