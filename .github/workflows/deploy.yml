@@ -23,7 +23,7 @@ jobs:
         uses: easingthemes/ssh-deploy@v2.1.5
         with:
           REMOTE_HOST: 138.195.138.190
-          REMOTE_USER: ubuntu
+          REMOTE_USER: root
           REMOTE_PORT: 22
           SOURCE: build/
           TARGET: /var/www/
