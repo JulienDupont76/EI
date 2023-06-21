@@ -62,7 +62,7 @@ const ListeFilm = () => {
           alignItems: 'center',
         }}
       >
-        <h1 style={{ padding: '30px' }}>Liste des films</h1>
+        <h1 style={{ padding: '30px' }}>Liste des films test</h1>
         <div className="search-container">
           <input
             type="text"
