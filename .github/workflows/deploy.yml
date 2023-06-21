@@ -22,7 +22,9 @@ jobs:
       - name: SSH Deploy
         uses: easingthemes/ssh-deploy@v2.1.5
         with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: build/
-          server: ubuntu@138.195.138.190
-          target: /var/www/
+          REMOTE_HOST: 138.195.138.190
+          REMOTE_USER: ubuntu
+          REMOTE_PORT: 22
+          SOURCE: build/
+          TARGET: /var/www/
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
