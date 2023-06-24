@@ -7,9 +7,10 @@ cd /var/www/EI/backend
 sudo npm install
 sudo touch database.sqlite3
 sudo chmod 777 database.sqlite3
-sudo chmod -R 777 ../backend
+sudo chmod 777 ../backend
 sudo rm -rf migrations/
 sudo mkdir migrations
+sudo chmod -R 777 migrations/
 sudo cp .env.example .env
 sudo npm run migration:generate --name=createDB
 sudo npm run migration:run
