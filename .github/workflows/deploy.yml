@@ -20,7 +20,7 @@ jobs:
         run: npm run build -prefix /home/runner/work/EI/EI/frontend
         
       - name: SSH Deploy
-        uses: easingthemes/ssh-deploy@main
+        uses: easingthemes/ssh-deploy@v2
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           REMOTE_HOST: quoi-regarder.cs-campus.fr
