@@ -24,7 +24,7 @@ jobs:
         
       - name: Test
         run: |
-          cd /
+          cd /var/www/
           ls -al
 
       - name: SSH Deploy
