@@ -24,8 +24,7 @@ jobs:
         
       - name: Test
         run: |
-          find / -name "build"
-          cd /var/www/
+          cd /var/www/html/
           ls -al
 
       - name: SSH Deploy
