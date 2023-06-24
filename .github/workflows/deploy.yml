@@ -31,7 +31,7 @@ jobs:
       - name: SSH Deploy
         uses: easingthemes/ssh-deploy@v2.1.5
         with:
-          REMOTE_HOST: 138.195.138.190
+          REMOTE_HOST: quoi-regarder.cs-campus.fr
           REMOTE_USER: ubuntu
           REMOTE_PORT: 22
           SOURCE: build/
