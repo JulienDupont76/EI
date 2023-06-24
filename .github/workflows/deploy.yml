@@ -32,7 +32,4 @@ jobs:
             cd /
             ls -al
           TARGET: /var/www/EI/
-          SCRIPT_AFTER: |
-            ls -al
-            pwd
-            echo $RSYNC_STDOUT
+          SCRIPT_AFTER: ls -al
