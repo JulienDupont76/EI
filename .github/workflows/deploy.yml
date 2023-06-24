@@ -32,6 +32,5 @@ jobs:
             cd /
             ls -al
           SCRIPT_AFTER: |
-            cd /var/www/
             ls -al
-          TARGET: /var/www/EI/     
+          TARGET: /var/www/EI/
