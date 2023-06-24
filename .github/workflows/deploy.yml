@@ -22,7 +22,7 @@ jobs:
       - name: Build project
         run: npm run build -prefix /home/runner/work/EI/EI/frontend
         
-      - name: File
+      - name: Test
         run: ls -al
 
       - name: SSH Deploy
