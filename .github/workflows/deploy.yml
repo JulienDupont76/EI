@@ -30,3 +30,6 @@ jobs:
           REMOTE_PORT: 22
           TARGET: /var/www/Test/
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SCRIPT_AFTER: |
+            cd /var/www/Test/
+            ls -al
