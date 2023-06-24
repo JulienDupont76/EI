@@ -22,17 +22,11 @@ jobs:
       - name: Build project
         run: npm run build -prefix /home/runner/work/EI/EI/frontend
         
-      - name: Test
-        run: |
-          pwd
-          cd ./frontend
-          ls -al
-
       - name: SSH Deploy
         uses: easingthemes/ssh-deploy@v2.1.5
         with:
           REMOTE_HOST: quoi-regarder.cs-campus.fr
           REMOTE_USER: ubuntu
           REMOTE_PORT: 22
-          TARGET: /var/www/
+          TARGET: /var/www/Test/
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
