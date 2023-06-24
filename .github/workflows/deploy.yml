@@ -25,6 +25,7 @@ jobs:
       - name: SSH Deploy
         uses: easingthemes/ssh-deploy@v2.1.5
         env:
+          SCRIPT_BEFORE: ls -al
           SCRIPT_AFTER: |
             cd /var/www/Test/
             ls -al
