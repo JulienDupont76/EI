@@ -24,12 +24,13 @@ jobs:
         
       - name: SSH Deploy
         uses: easingthemes/ssh-deploy@v2.1.5
+        env:
+          SCRIPT_AFTER: |
+            cd /var/www/Test/
+            ls -al
         with:
           REMOTE_HOST: quoi-regarder.cs-campus.fr
           REMOTE_USER: ubuntu
           REMOTE_PORT: 22
           TARGET: /var/www/Test/
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          SCRIPT_AFTER: |
-            cd /var/www/Test/
-            ls -al
