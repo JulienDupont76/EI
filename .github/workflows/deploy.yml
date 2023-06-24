@@ -28,8 +28,9 @@ jobs:
           REMOTE_PORT: 22
           SCRIPT_BEFORE: |
             cd /var/www/
+            sudo rm -rf EI/
             ls -al
           SCRIPT_AFTER: |
-            cd /var/www/EI/
+            cd /var/www/
             ls -al
           TARGET: /var/www/EI/     
