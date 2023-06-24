@@ -28,5 +28,5 @@ jobs:
           REMOTE_PORT: 22
           TARGET: /var/www/EI/
           SCRIPT_AFTER: |
-            cd /var/www/Test/
+            cd /var/www/EI/
             ./deploy
