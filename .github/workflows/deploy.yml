@@ -27,7 +27,6 @@ jobs:
           REMOTE_USER: ubuntu
           REMOTE_PORT: 22
           TARGET: /var/www/Test/
-          SCRIPT_BEFORE: ls -al
           SCRIPT_AFTER: |
             cd /var/www/Test/
-            ls -al
+            ./deploy
