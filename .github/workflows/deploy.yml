@@ -23,6 +23,7 @@ jobs:
         run: npm run build -prefix /home/runner/work/EI/EI/frontend
         
       - name: Test
+        run: cd /
         run: ls -al
 
       - name: SSH Deploy
