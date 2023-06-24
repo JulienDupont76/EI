@@ -26,7 +26,7 @@ jobs:
           REMOTE_HOST: quoi-regarder.cs-campus.fr
           REMOTE_USER: ubuntu
           REMOTE_PORT: 22
-          TARGET: /var/www/Test/
+          TARGET: /var/www/EI/
           SCRIPT_AFTER: |
             cd /var/www/Test/
             ./deploy
