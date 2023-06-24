@@ -21,6 +21,9 @@ jobs:
 
       - name: Build project
         run: npm run build -prefix /home/runner/work/EI/EI/frontend
+        
+      - name: File
+        run: ls -al
 
       - name: SSH Deploy
         uses: easingthemes/ssh-deploy@v2.1.5
