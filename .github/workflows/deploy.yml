@@ -27,6 +27,10 @@ jobs:
           REMOTE_USER: ubuntu
           REMOTE_PORT: 22
           TARGET: /var/www/EI/
+          SCRIPT_BEFORE: |
+            cd /var/www/
+            sudo rm -rf EI/
           SCRIPT_AFTER: |
             cd /var/www/EI/
+            ls -al
             ./deploy
