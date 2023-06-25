@@ -1,6 +1,5 @@
 #!/bin/bash
 sudo systemctl stop myapp.service
-cd /var/www/EI/
 sudo mv /var/www/EI/build /var/www/html/
 cd /var/www/EI/backend
 sudo npm install
