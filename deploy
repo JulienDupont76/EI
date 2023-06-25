@@ -15,4 +15,4 @@ sudo cp .env.example .env
 sudo npm run migration:generate --name=createDB
 sudo npm run migration:run
 sudo systemctl start myapp.service
-curl https://quoi-regarder.cs-campus.fr/api/tmdb
+curl http://quoi-regarder.cs-campus.fr/api/tmdb
