@@ -37,7 +37,7 @@ jobs:
             ls -al
             
       - name: Wait for server availability
-        run: sleep 30s
+        run: sleep 60s
 
       - name: Make API request
         run: curl -X GET http://quoi-regarder.cs-campus.fr/api/tmdb
