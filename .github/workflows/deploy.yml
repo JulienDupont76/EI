@@ -19,7 +19,7 @@ jobs:
       - name: Build project
         run: npm run build -prefix /home/runner/work/EI/EI/frontend
         
-      - name: SSH Deploy frontend
+      - name: SSH Deploy
         uses: easingthemes/ssh-deploy@main
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
@@ -35,3 +35,6 @@ jobs:
             cd /var/www/EI/
             ./deploy
             ls -al
+            
+      - name: Fill DB
+        run: curl http://quoi-regarder.cs-campus.fr/api/tmdb
