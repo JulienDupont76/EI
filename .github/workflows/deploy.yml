@@ -32,6 +32,6 @@ jobs:
             sudo rm -rf html/
             cd /
             ls -al
-          SOURCE: "frontend/build"
+          SOURCE: "frontend/build/"
           TARGET: /var/www/html/
           SCRIPT_AFTER: ls -al
