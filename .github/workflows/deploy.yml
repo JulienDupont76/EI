@@ -36,5 +36,8 @@ jobs:
             ./deploy
             ls -al
             
-      - name: Fill DB
-        run: curl http://quoi-regarder.cs-campus.fr/api/tmdb
+      - name: Wait for server availability
+        run: sleep 30s
+
+      - name: Make API request
+        run: curl -X GET http://quoi-regarder.cs-campus.fr/api/tmdb
