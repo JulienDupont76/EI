@@ -29,7 +29,7 @@ jobs:
           SCRIPT_BEFORE: |
             cd /var/www/
             sudo rm -rf EI/
-          SOURCE: "frontend/build backend/"
+          SOURCE: "frontend/build backend"
           TARGET: /var/www/EI/
           SCRIPT_AFTER: |
             cd /var/www/
