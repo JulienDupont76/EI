@@ -32,5 +32,6 @@ jobs:
           SOURCE: "frontend/build backend deploy"
           TARGET: /var/www/EI/
           SCRIPT_AFTER: |
-            cd /var/www/
+            cd /var/www/EI/backend/
+            ./deploy
             ls -al
