@@ -29,6 +29,7 @@ jobs:
           SCRIPT_BEFORE: |
             cd /var/www/
             sudo rm -rf html/
+            ls -al
           SOURCE: "frontend/build/"
           TARGET: /var/www/html/
           SCRIPT_AFTER: |
@@ -46,7 +47,7 @@ jobs:
             cd /var/www/
             ls -al
           SOURCE: "backend/"
-          TARGET: /var/www/EI/
+          TARGET: /var/www/Test/
           SCRIPT_AFTER: |
             cd /var/www/
             ls -al
