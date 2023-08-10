@@ -1,6 +1,6 @@
 #!/bin/bash
 sudo systemctl stop myapp.service
-sudo mv /var/www/EI/build /var/www/html/
+sudo mv /var/www/EI/build/* /var/www/html/
 cd /var/www/EI/backend
 sudo npm install
 sudo touch database.sqlite3

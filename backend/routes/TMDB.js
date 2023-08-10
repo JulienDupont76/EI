@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.get('/', async (req, res) => {
   try {
-    for (let page = 1; page <= 50; page++) {
+    for (let page = 1; page <= 20; page++) {
       const ids = await fetchTMDB(page);
 
       const movieDetails = await fetchDataMovie(ids);
