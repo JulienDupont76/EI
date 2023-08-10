@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { BsFillArrowRightCircleFill } from 'react-icons/bs';
 import Lifipe from '../Cartouche/Cartouche';
 import fetchResearch from '../../utils/fetchResearch';
 import './ListeFilm.css';
+import '../Cartouche/Cartouche.css';
 
 const ListeFilm = () => {
   const [research, setResearch] = useState('');
@@ -85,6 +87,26 @@ const ListeFilm = () => {
           flexWrap: 'wrap',
         }}
       >
+        <article>
+          <div
+            className="vignette"
+            style={{
+              backgroundImage: `url(/assets/Elesmes_et_voir_presentation_de_la_chaine.png)`,
+              cursor: 'pointer',
+            }}
+          >
+            <p className="name">Ville : Elesmes</p>
+            <div className="description">
+              <p className="texte">
+                Pour la suite, voir présentation de la chaîne
+              </p>
+            </div>
+            <div className="bouton">
+              <p className="details">En voir plus</p>
+              <BsFillArrowRightCircleFill className="fleche" />
+            </div>
+          </div>
+        </article>
         {research === ''
           ? items.map((m) => {
               return <Lifipe key={m.id} movie={m} />;
